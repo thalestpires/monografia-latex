@@ -8,13 +8,25 @@ Para atingir este objetivo, criamos um plugin para o Redmine que possibilita a c
 
 \section{Implementação}\label{sec:integracao_redmine_activiti-implementacao}
 
+A integração tem por objetivo centralizar o máximo de funcionalidades no Redmine, deixando transparente tanto para o usuário comum como o gestor, a existência de um motor BPM por trás.
+
 \subsection{Funcionalidades}\label{sec:integracao_redmine_activiti_implementacao_funcionalidades}
 
+\subsubsection{Conexão com o Activiti }\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_conexão}
+Para iniciar a utilização do plugin é necessário configurar os detalhes para conexão com o Activiti BPM.
+Após colocar o servidor, login e senha, também é preciso disparar os jobs que rodam continuamente para sincronizar os processos e tarefas entre o Redmine e o Activiti.
+
+\subsubsection{Configuração dos estados}\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_conexão}
+Também é necessário configurar os estados principais a serem utilizados pelo plugin.
+Configure os estados padrão que devem ser utilizados quando um processo é criado, concluído ou está em andamento.
+
 \subsubsection{Deploy de um processo}\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_deploy}
+Como já foi explicado, o processo deve ser modelado na notação BPMN. Mas à partir deste ponto, toda a interação será através do Redmine.
+Na tela de processos, ao clicar em Novo processo, é possível fazer upload de uma modelagem de um processo para o Redmine. Esta operação tenta o deploy do arquivo selecionado no Activiti, através do serviço REST e apresenta o resultado na tela.
+
+A cada vez que esta tela é atualizada, a lista de processos é atualizada. Nela são mostrados todo os fluxos de trabalho ativos no BPMS, inclusive os que não foram instalados através da interface citada acima. Ao clicar numa linha, o usuário consegue visualizar o diagrama do processo.
 
 \subsubsection{Configuração de um processo}\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_deploy}
-
-\subsubsection{Conexão com o Activiti }\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_conexão}
 
 
 \section{Resultados}\label{sec:integracao_redmine_activiti-resultados}

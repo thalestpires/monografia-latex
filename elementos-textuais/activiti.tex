@@ -29,19 +29,24 @@ A notação define quatro grupos distintos de objetos para permitir a diagramaç
 
 O Activiti é constituído através de diversos componentes que juntos possibilitam o aproveitamento do ecossistema BPM. Com exceção do Activiti Engine, pois este constitui o módulo principal da ferramenta, todos os demais módulos são opcionais e dependem do cenário de utilização da ferramenta.
 
-O Activiti Engine é o componente principal, pois nele estão presentes o motor de funcionamento do BPM e as APIs para controle da ferramenta. Este componente é disponibilizado através de um simples arquivo JAR, modelo de arquivo padrão para bibliotecas da linguaguem Java. Sendo assim, o motor BPM pode ser facilmente utilizado em diferentes projetos Java através da inclusão dessa biblioteca como dependência.
+O Activiti Engine é o componente principal, pois nele estão presentes o motor de funcionamento do BPM e as APIs para acesso e controle da ferramenta. Este componente é disponibilizado através de um simples arquivo JAR, modelo de arquivo padrão para bibliotecas da linguaguem Java. Sendo assim, o motor BPM pode ser facilmente utilizado em diferentes projetos Java através da inclusão dessa biblioteca como dependência.
 
-Além do interface através da API Java, que já está inclusa no motor BPM, o Activiti REST API disponibiliza um acesso às funcionalidades principais do Activiti através de uma interface REST. Através dessa interface, a é possível a construção das mais variadas interfaces de front-end para interação com a ferramenta. 
+Além da API Java, que está incluída no motor BPM, o Activiti REST API disponibiliza um acesso às funcionalidades principais do Activiti através de uma interface REST. Isso simplifica o acesso às suas funcionalidades e facilita a construção das mais variadas aplicações de interface com o usuário, como por exemplo, aplicações móveis.
 
 O Activiti Designer, é um plugin criado para a interface de desenvolvimento Eclipse, que permite ao analista ou desenvolvedor modelar processos na notação BPMN graficamente, ao mesmo tempo em que é gerado automaticamente a notação do processo em XML.
 
-O Activiti Explorer é a interface web padrão disponbilizada para o controle e execução de processos. Através dessa interface, o usuário pode instalar novas definições de processos, iniciar ou cancelar processos, finalizar tarefas
-
-O Activiti Modeler 
-
-O Activiti Cycle
+O Activiti Explorer é a interface web padrão com o usuário, disponibilizada para o controle e execução de processos. Através dessa interface, o usuário pode instalar novas definições de processos, iniciar ou cancelar processos, finalizar ou delegar tarefas.
 
 \section{Como automatizar um processo?}\label{sec:activiti-automatizar_processo}
+
+Nesta seção, iremos detalhar uma abordagem simplificada porém suficiente para ilustrar os passos necessários para a automatização de um processo de negócio na ferramenta.  O processo de negócio utilizado como base é o mesmo apresentado na seção de introdução deste trabalho.
+
+O primeiro passo necessário é a preparação do ambiente de execução do BPM. Para isso, existem duas possibilidades principais. A primeira opção é a inclusão da dependência do Activiti BPM em um projeto Java web específico, e posterior construção do pacote WAR para execução em um servidor Java web. Outra opção, mais simples e que será utilizada nesta seção, é a utilização de um pacote WAR pronto para funcionamento (activiti-explorer.war), disponibilizado diretamente no site da ferramenta (www.activiti.org).
+
+O arquivo disponibilizado no portal da ferramenta já inclui o Activiti Engine e o Activiti Explorer num único pacote, pré-configurados com um banco de dados em memória H2 Database que dá suporte ao Activiti BPM, e não necessita de nenhuma configuração adicional. Para iniciar seu funcionamento, basta a instalaçãom de um servidor Java web, e que neste trabalho utilizaremos o Apache Tomcat 7, e consequente deploy do artefato no servidor.
+
+
+
 
 \section{Vantagens e Limitações}\label{sec:activiti-vantages_limitacoes}
 

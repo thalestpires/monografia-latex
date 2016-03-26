@@ -213,3 +213,14 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+*.aux
+*.bbl
+*.blg
+*.lof
+*.lol
+*.lot
+*.out
+*.pdf
+*.toc
+*.kilepr

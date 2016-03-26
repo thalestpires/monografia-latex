@@ -27,7 +27,20 @@ A notação define quatro grupos distintos de objetos para permitir a diagramaç
 
 \section{Gestão de processos com o Activiti BPM}\label{sec:activiti-gestao_processos}
 
-O motor do Activiti BPM é disponibilizado através de um simples arquivo JAR, modelo de arquivo padrão para bibliotecas da linguaguem Java. Sendo assim, o motor BPM pode ser facilmente utilizado em diferentes projetos Java através da inclusão dessa biblioteca como dependência e pela utilização de sua API.
+O Activiti é constituído através de diversos componentes que juntos possibilitam o aproveitamento do ecossistema BPM. Com exceção do Activiti Engine, pois este constitui o módulo principal da ferramenta, todos os demais módulos são opcionais e dependem do cenário de utilização da ferramenta.
+
+O Activiti Engine é o componente principal, pois nele estão presentes o motor de funcionamento do BPM e as APIs para controle da ferramenta. Este componente é disponibilizado através de um simples arquivo JAR, modelo de arquivo padrão para bibliotecas da linguaguem Java. Sendo assim, o motor BPM pode ser facilmente utilizado em diferentes projetos Java através da inclusão dessa biblioteca como dependência.
+
+Além do interface através da API Java, que já está inclusa no motor BPM, o Activiti REST API disponibiliza um acesso às funcionalidades principais do Activiti através de uma interface REST. Através dessa interface, a é possível a construção das mais variadas interfaces de front-end para interação com a ferramenta. 
+
+O Activiti Designer, é um plugin criado para a interface de desenvolvimento Eclipse, que permite ao analista ou desenvolvedor modelar processos na notação BPMN graficamente, ao mesmo tempo em que é gerado automaticamente a notação do processo em XML.
+
+O Activiti Explorer é a interface web padrão disponbilizada para o controle e execução de processos. Através dessa interface, o usuário pode instalar novas definições de processos, iniciar ou cancelar processos, finalizar tarefas
+
+O Activiti Modeler 
+
+O Activiti Cycle
+
 \section{Como automatizar um processo?}\label{sec:activiti-automatizar_processo}
 
 \section{Vantagens e Limitações}\label{sec:activiti-vantages_limitacoes}

@@ -37,14 +37,17 @@ O Activiti Designer, é um plugin criado para a interface de desenvolvimento Ecl
 
 O Activiti Explorer é a interface web padrão com o usuário, disponibilizada para o controle e execução de processos. Através dessa interface, o usuário pode instalar novas definições de processos, iniciar ou cancelar processos, finalizar ou delegar tarefas.
 
+O Activiti exige um ambiente Java JDK versão 6 ou superior para seu correto funcionamento. Além do ambiente Java configurado, também é necessário um banco de dados para suportar a persistência das informações dos processos. Uma variedade de bancos é suportada pelo BPMS, são eles: H2, MySQL, Oracle, Postgres, DB2 e SQL Server.
+
 \section{Como automatizar um processo?}\label{sec:activiti-automatizar_processo}
 
-Nesta seção, iremos detalhar uma abordagem simplificada porém suficiente para ilustrar os passos necessários para a automatização de um processo de negócio na ferramenta.  O processo de negócio utilizado como base é o mesmo apresentado na seção de introdução deste trabalho.
+Nesta seção, iremos detalhar uma abordagem simplificada, porém suficiente para ilustrar os passos necessários para a automatização de um processo de negócio na ferramenta.  O processo de negócio utilizado como base é o mesmo apresentado na seção de introdução deste trabalho.
 
 O primeiro passo necessário é a preparação do ambiente de execução do BPM. Para isso, existem duas possibilidades principais. A primeira opção é a inclusão da dependência do Activiti BPM em um projeto Java web específico, e posterior construção do pacote WAR para execução em um servidor Java web. Outra opção, mais simples e que será utilizada nesta seção, é a utilização de um pacote WAR pronto para funcionamento (activiti-explorer.war), disponibilizado diretamente no site da ferramenta (www.activiti.org).
 
-O arquivo disponibilizado no portal da ferramenta já inclui o Activiti Engine e o Activiti Explorer num único pacote, pré-configurados com um banco de dados em memória H2 Database que dá suporte ao Activiti BPM, e não necessita de nenhuma configuração adicional. Para iniciar seu funcionamento, basta a instalaçãom de um servidor Java web, e que neste trabalho utilizaremos o Apache Tomcat 7, e consequente deploy do artefato no servidor.
+O arquivo disponibilizado no portal da ferramenta já inclui o Activiti Engine e o Activiti Explorer num único pacote, pré-configurados com um banco de dados em memória H2 que dá suporte ao seu funcionamento e não requer nenhuma configuração adicional. Para iniciar a execução do BPMS, basta a instalação do artefato em um servidor Java web como o Apache Tomcat 7 que será utilizado neste trabalho.
 
+Após a instalação do artefato e inicialização do Tomcat, o portal pode ser acessado através do endereço http://127.0.0.1:8080/activiti-explorer, dado que o Tomcat tenha sido instalado na sua configuração padrão. O usuário e senha padrão para acesso ao portal como administrador é kermit.
 
 
 

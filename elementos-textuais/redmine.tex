@@ -5,24 +5,39 @@ Neste capítulo vamos explicar como o Redmine, uma ferramenta de gerenciamento d
 
 \section{Estrutura básica do Redmine}\label{sec:redmine-estrutura_basica}
 
-A estrutura básica de gerenciamento de projetos no Redmine é composta por X principais elementos. São eles:
+A estrutura básica de gerenciamento de projetos no Redmine é composta por 6 principais elementos. São eles:
 
 \subsection{Tarefas}\label{subsection:redmine-estrutura_basica-tarefa}
 
-São as unidades básicas de execução de trabalho dos projetos (\ref{subsection:redmine-estrutura_basica-projeto}). Elas contém os dados relevantes para o seu gerenciamento (e.g, tipo (\ref{subsection:redmine-estrutura_basica-tracker}, situação(\ref{subsection:redmine-estrutura_basica-status}), data de início, data de conclusão, categoria), para a sua execução (e.g, título, descrição) e dados adicionais que podem variar entre os projetos e tipos de tarefa, que são cadastrados como campos personalizados (\ref{subsection:redmine-estrutura_basica-custom_fields}).  
+São as unidades básicas de execução de trabalho dos projetos (\ref{subsection:redmine-estrutura_basica-projeto}). Elas contém os dados relevantes para o seu gerenciamento (e.g, tipo (\ref{subsection:redmine-estrutura_basica-tracker}), situação (\ref{subsection:redmine-estrutura_basica-status})), para a sua execução (e.g, título, descrição) e dados adicionais que podem variar entre os projetos e tipos de tarefa, que são cadastrados como campos personalizados (\ref{subsection:redmine-estrutura_basica-custom_fields}).  
 
 \subsection{Projetos}\label{subsection:redmine-estrutura_basica-projeto}
 
+Projetos são o objeto central do Redmine. Eles são compostos por diversos módulos que acrescentam diferentes dimensões para o seu gerenciamento, como gerenciamento de tarefas, planejamento de versões, acompanhamento do progresso das tarefas em um diagrama de Gantt, Wiki para organização do conhecimento, entre outros. 
+
 \subsection{Tipos de tarefa}\label{subsection:redmine-estrutura_basica-tracker}
+
+Tipos de tarefa definem o fluxo de trabalho para a realização de atividades similares. De acordo com o tipo, variam as informações necessárias para a execução da tarefa, a sequência de passos para sua conclusão e as ações que cada membro do projeto pode desempenhar em cada etapa.
 
 \subsection{Situação}\label{subsection:redmine-estrutura_basica-status}
 
+Situação indica em qual etapa do processo uma tarefa se encontra. É usada para definir as ações possíveis pelos membros do projeto. Essas ações podem ser diferentes para cada tipo de tarefa.
+
 \subsection{Papéis de usuários}\label{subsection:redmine-estrutura_basica-role}
 
-\subsection{Campos Customizados}\label{subsection:redmine-estrutura_basica-custom_fields}
+Os papéis de usuários definem quais permissões um usuário possui, como, por exemplo, visualizar, adicionar e editar tarefas, editar Wiki, adicionar e editar documentos. Os papéis são atribuídos aos usuários em cada projeto que ele participa, portanto, ele pode possuir permissões diferentes dependendo do projeto de que ele é membro.
 
+\subsection{Campos Personalizados}\label{subsection:redmine-estrutura_basica-custom_fields}
+
+Todas as tarefas de projetos possuem dados em comum, como data de início, data de término e descrição. No entanto, dependendo das especificidades de um projeto ou tipo de tarefa, podem ser necessárias informações adicionais. Para esses casos existem os campos personalizados. Eles permitem criar novos campos e adicioná-los às tarefas, estendendo as configurações padrão da ferramenta.
 
 \section{Gestão de processos com o Redmine}\label{sec:redmine-gestao_processos}
+
+A estrutura de projetos do Redmine é altamente configurável. Todos os elementos explicados na seção \ref{sec:redmine-estrutura_basica} são cadastrados pelos usuários administradores do sistema, que são responsáveis por configurá-los e personalizá-los para atender às demandas de cada projeto.
+
+Todas as configurações e personalizações citadas no último parágrafo são feitas exclusivamente pela interface da ferramenta, sem necessidade de alterações no código da aplicação ou arquivos de configuração, o que confere aos administradores capacidade para modelar a estrutura da ferramenta da forma que for mais conveniente para a necessidade dos usuários.
+
+Devido a sua natureza adaptável e ferramentas de gerenciamento de tarefas e de conhecimento, o Redmine pode ser utilizado, também, em outros contextos, como no gerenciamento de processos de negócio.
 
 
 \section{Como automatizar um processo?}\label{sec:redmine-automatizar_processo}

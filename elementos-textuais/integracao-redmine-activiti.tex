@@ -6,7 +6,7 @@ Dadas as vantagens e limitações das ferramentas Activiti e Redmine utilizadas 
 Para atingir este objetivo, criamos um plugin para o Redmine que possibilita a comunicação com o Activiti. Nas próximas sessões, descreveremos o processo de construção deste plugin e como utilizá-lo.
 
 
-\section{Implementação}\label{sec:integracao_redmine_activiti-implementacao}
+\section{Customização do Redmine}\label{sec:integracao_redmine_activiti-implementacao}
 
 A integração tem por objetivo centralizar o máximo de funcionalidades no Redmine, deixando transparente tanto para o usuário comum como o gestor, a existência de um motor BPM por trás.
 
@@ -26,10 +26,49 @@ Na tela de processos, ao clicar em Novo processo, é possível fazer upload de u
 
 A cada vez que esta tela é atualizada, a lista de processos é atualizada. Nela são mostrados todo os fluxos de trabalho ativos no BPMS, inclusive os que não foram instalados através da interface citada acima. Ao clicar numa linha, o usuário consegue visualizar o diagrama do processo.
 
-\subsubsection{Configuração de um processo}\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_configuracao}
-A integração das duas ferramentas se dá na sincronização dos processos e tarefas humanas do Activiti.
+É possível efetuar o deploy da mesma definição de processo mais de uma vez, caso sejam feitas alterações no fluxo. Neste caso, o novo deploy será identificado como uma nova versão do mesmo processo. 
 
-\subsubsubsection{Representação de um processo}\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_configuracao_processo}
-ddd
+\subsubsection{Configuração de um processo}\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_configuracao}
+A integração das duas ferramentas se dá na sincronização dos processos e tarefas humanas do Activiti. A representação para elas que foi implementada no Redmine é explicada nas duas seções a seguir:
+
+\begin{itemize}
+\item \textbf{Representação de um processo} - Um fluxo de um processo modelado e instalado no Activiti é chamado de definição de processo. No Redmine, o tipo da tarefa representa a definição de processo, e determinará qual o processo que é disparado na criação de uma tarefa. Uma instância (a materialização de uma definição de processo) de um processo no BPMS é iniciada pela criação de uma tarefa no Redmine. Durante toda a vida de um processo, este é representado pela tarefa que deu início a ele. 
+
+\item \textbf{Representação de uma tarefa humana} - Quando um fluxo vai para uma etapa de tarefa humana, é criado uma tarefa no Redmine para representá-la e aonde a interação necessária com o usuário acontecerá. Esta tarefa será filha da tarefa que representa a instância do processo em questão.
+\end{itemize}
+
+A primeira configuração a ser feita consiste em definir qual o tipo de tarefa estará conectado ao processo sendo editado. Além disso, é exibida a lista de versões do processo selecionado, e qual a versão ativa. Ao estabelecer esta conexão, toda tarefa deste tipo criada no Redmine disparará uma instância dessa definição de processo no Activiti, na versão ativa marcada.
+Na mesma tela também é possível redefinir o nome que aparece na lista de processos.
+
+O próximo passo é editar uma versão para configurar mais detalhes:
+
+\begin{itemize}
+\item \textbf{Ativo} - Como explicado anteriormente, ao marcar esta opção, o usuário estabelece a versão padrão que deve ser disparada pelas tarefas conectadas a este processo.
+
+\item \textbf{Variáveis do processo} - Numa definição de um processo podem ser definidas diferentes variáveis a serem usadas para definir o status ou responsável de uma tarefa, para preencher automaticamente um campo ou tomada de decisão. Devem ser preenchidos os valores para essas variáveis utilizadas no processo de acordo com o tipo definido.
+
+\item \textbf{Estados de conclusão do processo} - 
+Na modelagem do processo podem ser configurados diferentes eventos de término. Nesta seção são configurados quais status no Redmine vão representar cada evento.
+
+\item \textbf{Status inicial das tarefas do processo} - 
+Aqui são listadas as etapas do tipo tarefa humana presentes na modelagem. Para cada uma é possível definir o status com o qual deve ser criada cada sub-tarefa que representa a tarefa humana em questão.
+
+\item \textbf{Campos personalizados utilizados pelo processo} - Na modelagem, o evento de inicialização, bem como as tarefas humanas de um processo possuem campos de formulário. Os valores destes campos são sincronizados junto com as tarefas do Redmine para o Activiti e vice-versa. Para guardar estes campos nas tarefas do Redmine são utilizados campos personalizados. Nesta seção portanto, deve ser selecionado cada campo customizado que representará os campos definidos no processo.
+
+
+\end{itemize}
+
+
+\section{Customização do Activiti}\label{sec:integracao_redmine_activiti-implementacao-activiti}
+
+A integração entre o Redmine e o Activiti BPM foi desenvolvida sob o aspecto de direcionar a maior parte das customizações para o lado do Redmine, uma vez que esta é apenas uma das possibilidades de interface com o motor de processos. Num cenário mais amplo de processos mais complexos, outros tipos de dispositivos ou sistemas poderiam realizar uma comunicação direta com os processos.
+
+A API REST padrão oferecida pelo Activiti foi utilizada para a integração entre as ferramentas, uma vez que é bem completa e oferece a maioria dos serviços necessários para a comunicação. Também contou a facilidade de chamadas a APIs REST pelo Ruby on Rails. 
+
+Entretanto, identificamos a ausência de um serviço fundamental para integração entre as ferramentas. Esse serviço deveria retornar uma lista contendo as definições de tarefas contidas em um determinado processo, incluindo os campos disponíveis nos formulários das tarefas. Essa definição nos permitiria estabelecer a interface para o mapeamento dos campos do processo com os campos das tarefas do Redmine.
+
+Sendo assim, extendemos a API REST do Activiti, através da criação de um classe Java representando um novo serviço, semelhante aos serviços existentes no seu código-fonte. Esse serviço consistiu no consumo de uma API Java já disponibilizada pelo Activiti, mas ausente na API REST. O código-fonte simplificado desta classe pode ser observado abaixo:
+
+\codejava{Java}{alg:LABEL_CODE_2}{codigos/TaskDefinitionService.java}
 
 \section{Resultados}\label{sec:integracao_redmine_activiti-resultados}

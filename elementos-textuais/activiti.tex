@@ -39,11 +39,19 @@ O Activiti Explorer é a interface web padrão com o usuário, disponibilizada p
 
 O Activiti exige um ambiente Java JDK versão 6 ou superior para seu correto funcionamento. Além do ambiente Java configurado, também é necessário um banco de dados para suportar a persistência das informações dos processos. Uma variedade de bancos é suportada pelo BPMS, são eles: H2, MySQL, Oracle, Postgres, DB2 e SQL Server.
 
+
 \section{Como automatizar um processo?}\label{sec:activiti-automatizar_processo}
 
 Nesta seção, iremos detalhar uma abordagem simplificada, porém suficiente para ilustrar os passos necessários para a automatização de um processo de negócio na ferramenta.  O processo de negócio utilizado como base é o mesmo apresentado na seção de introdução deste trabalho.
 
-\subsection{Configuração do Ambiente}\label{sec:activiti-automatizar_processo_configuracao_ambiente}
+\subsection{Configuração do Ambiente}\label{sec:activiti-automatizar_processo_configuracao}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\textwidth]{imagens/bpmn_example.png}
+  \caption{Exemplo de processo representado em BPMN}
+  \label{fig:exemplo_bpmn}
+\end{figure}
 
 O primeiro passo necessário é a preparação do ambiente de execução do BPM. Para isso, existem duas possibilidades principais. A primeira opção é a inclusão da dependência do Activiti BPM em um projeto Java web específico, e posterior construção do pacote WAR para execução em um servidor Java web. Outra opção, mais simples e que será utilizada nesta seção, é a utilização de um pacote WAR pronto para funcionamento (activiti-explorer.war), disponibilizado diretamente no site da ferramenta (www.activiti.org).
 
@@ -51,7 +59,21 @@ O arquivo disponibilizado no portal da ferramenta já inclui o Activiti Engine e
 
 Após a instalação do artefato e inicialização do Tomcat, o portal pode ser acessado através do endereço http://127.0.0.1:8080/activiti-explorer, dado que o Tomcat tenha sido instalado na sua configuração padrão. O usuário e senha padrão para acesso ao portal como administrador é kermit.
 
+\subsection{Modelagem do Processo}\label{sec:activiti-automatizar_processo_modelagem}
 
+Para a modelagem do processo, é necessária a instalação do plugin Activiti Designer na ferramenta de desenvolvimento Eclipse. Mais detalhes sobre como proceder com a instalação do plugin estão disponíveis no portal do Activiti.
+
+Ao criar um novo diagrama através da opção Activiti Diagram, o Activiti Designer cria um arquivo .bpmn e disponibiliza duas visões para a modelagem do processo. Uma aba visual, contendo o desenho do processo, e outra aba textual, com a notação em XML. Ambas as abas estão interligadas e podem ser utilizadas para a modelagem, sendo a visual mais utilizada pela simplicidade de construção.
+
+Para a modelagem do processo na paleta visual, é necessário arrastar os componentes visuais dispostos na aba lateral a fim de obter a modelagem desejada do processo na notação BPMN.
+
+<< inserir imagem da modelagem do processo de exemplo >>
+
+Ao final da modelagem, o arquivo .bpmn é criado e será utilizado na instalação do processo na seção seguinte.
+
+\subsection{Instalação do Processo}\label{sec:activiti-automatizar_processo_modelagem}
+
+\subsection{Execução do Processo}\label{sec:activiti-automatizar_processo_modelagem}
 
 \section{Vantagens e Limitações}\label{sec:activiti-vantages_limitacoes}
 

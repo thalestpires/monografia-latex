@@ -43,6 +43,8 @@ O Activiti exige um ambiente Java JDK versão 6 ou superior para seu correto fun
 
 Nesta seção, iremos detalhar uma abordagem simplificada, porém suficiente para ilustrar os passos necessários para a automatização de um processo de negócio na ferramenta.  O processo de negócio utilizado como base é o mesmo apresentado na seção de introdução deste trabalho.
 
+\subsection{Configuração do Ambiente}\label{sec:activiti-automatizar_processo_configuracao_ambiente}
+
 O primeiro passo necessário é a preparação do ambiente de execução do BPM. Para isso, existem duas possibilidades principais. A primeira opção é a inclusão da dependência do Activiti BPM em um projeto Java web específico, e posterior construção do pacote WAR para execução em um servidor Java web. Outra opção, mais simples e que será utilizada nesta seção, é a utilização de um pacote WAR pronto para funcionamento (activiti-explorer.war), disponibilizado diretamente no site da ferramenta (www.activiti.org).
 
 O arquivo disponibilizado no portal da ferramenta já inclui o Activiti Engine e o Activiti Explorer num único pacote, pré-configurados com um banco de dados em memória H2 que dá suporte ao seu funcionamento e não requer nenhuma configuração adicional. Para iniciar a execução do BPMS, basta a instalação do artefato em um servidor Java web como o Apache Tomcat 7 que será utilizado neste trabalho.

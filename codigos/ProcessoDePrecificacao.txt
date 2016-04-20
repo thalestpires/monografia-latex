@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <collaboration id="Collaboration">
+    <participant id="processo_precificacao" name="Processo de Precificação" processRef="process_pool1"></participant>
+  </collaboration>
+  <process id="process_pool1" name="process_pool1" isExecutable="true">
+    <laneSet id="laneSet_process_pool1">
+      <lane id="analista" name="Analista">
+        <flowNodeRef>solicitar_troca_preco</flowNodeRef>
+        <flowNodeRef>avaliar_alcada_precificacao</flowNodeRef>
+        <flowNodeRef>decisao_aprovacao</flowNodeRef>
+        <flowNodeRef>inicio</flowNodeRef>
+      </lane>
+      <lane id="aprovador" name="Aprovador">
+        <flowNodeRef>exclusivegateway2</flowNodeRef>
+        <flowNodeRef>aprovar_precificacao</flowNodeRef>
+        <flowNodeRef>processo_finalizado_nao_precificado</flowNodeRef>
+      </lane>
+      <lane id="sistema" name="Sistema">
+        <flowNodeRef>trocar_preco</flowNodeRef>
+        <flowNodeRef>processo_finalizado_precificado</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="inicio" name="Início"></startEvent>
+    <userTask id="solicitar_troca_preco" name="Solicitar Troca de Preço"></userTask>
+    <sequenceFlow id="flow1" sourceRef="inicio" targetRef="solicitar_troca_preco"></sequenceFlow>
+    <userTask id="aprovar_precificacao" name="Aprovar Precificação">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="aprovadores"></multiInstanceLoopCharacteristics>
+    </userTask>
+    <serviceTask id="trocar_preco" name="Trocar Preço"></serviceTask>
+    <sequenceFlow id="fim_processo_finalizado_precificado" sourceRef="trocar_preco" targetRef="processo_finalizado_precificado"></sequenceFlow>
+    <exclusiveGateway id="decisao_aprovacao" name="Decisão da Necessidade de Aprovação"></exclusiveGateway>
+    <sequenceFlow id="aprovacao_necessaria" name="Aprovação Necessária" sourceRef="decisao_aprovacao" targetRef="aprovar_precificacao"></sequenceFlow>
+    <sequenceFlow id="aprovacao_automatica" name="Aprovação Automática" sourceRef="decisao_aprovacao" targetRef="trocar_preco"></sequenceFlow>
+    <businessRuleTask id="avaliar_alcada_precificacao" name="Avaliar Alçada de Precificação"></businessRuleTask>
+    <sequenceFlow id="flow9" sourceRef="solicitar_troca_preco" targetRef="avaliar_alcada_precificacao"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="avaliar_alcada_precificacao" targetRef="decisao_aprovacao"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Decisão da Aprovação"></exclusiveGateway>
+    <sequenceFlow id="flow11" sourceRef="aprovar_precificacao" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="aprovado" name="Aprovado" sourceRef="exclusivegateway2" targetRef="trocar_preco"></sequenceFlow>
+    <sequenceFlow id="fim_processo_finalizado_nao_precificado" name="Não Aprovado" sourceRef="exclusivegateway2" targetRef="processo_finalizado_nao_precificado"></sequenceFlow>
+    <endEvent id="processo_finalizado_nao_precificado" name="Fim">
+      <terminateEventDefinition></terminateEventDefinition>
+    </endEvent>
+    <endEvent id="processo_finalizado_precificado" name="Fim">
+      <terminateEventDefinition></terminateEventDefinition>
+    </endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
+      <bpmndi:BPMNShape bpmnElement="processo_precificacao" id="BPMNShape_processo_precificacao">
+        <omgdc:Bounds height="279.0" width="661.0" x="30.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="analista" id="BPMNShape_analista">
+        <omgdc:Bounds height="91.0" width="641.0" x="50.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="aprovador" id="BPMNShape_aprovador">
+        <omgdc:Bounds height="91.0" width="641.0" x="50.0" y="121.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sistema" id="BPMNShape_sistema">
+        <omgdc:Bounds height="97.0" width="641.0" x="50.0" y="212.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inicio" id="BPMNShape_inicio">
+        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="61.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="solicitar_troca_preco" id="BPMNShape_solicitar_troca_preco">
+        <omgdc:Bounds height="55.0" width="111.0" x="140.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="aprovar_precificacao" id="BPMNShape_aprovar_precificacao">
+        <omgdc:Bounds height="55.0" width="105.0" x="420.0" y="139.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="trocar_preco" id="BPMNShape_trocar_preco">
+        <omgdc:Bounds height="55.0" width="105.0" x="520.0" y="238.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="decisao_aprovacao" id="BPMNShape_decisao_aprovacao">
+        <omgdc:Bounds height="40.0" width="40.0" x="390.0" y="58.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="avaliar_alcada_precificacao" id="BPMNShape_avaliar_alcada_precificacao">
+        <omgdc:Bounds height="55.0" width="105.0" x="270.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="41.0" width="31.0" x="550.0" y="146.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="processo_finalizado_nao_precificado" id="BPMNShape_processo_finalizado_nao_precificado">
+        <omgdc:Bounds height="35.0" width="35.0" x="650.0" y="149.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="processo_finalizado_precificado" id="BPMNShape_processo_finalizado_precificado">
+        <omgdc:Bounds height="35.0" width="35.0" x="650.0" y="248.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="115.0" y="78.0"></omgdi:waypoint>
+        <omgdi:waypoint x="140.0" y="78.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="fim_processo_finalizado_precificado" id="BPMNEdge_fim_processo_finalizado_precificado">
+        <omgdi:waypoint x="625.0" y="265.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="265.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="aprovacao_necessaria" id="BPMNEdge_aprovacao_necessaria">
+        <omgdi:waypoint x="430.0" y="78.0"></omgdi:waypoint>
+        <omgdi:waypoint x="472.0" y="78.0"></omgdi:waypoint>
+        <omgdi:waypoint x="472.0" y="139.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="39.0" width="100.0" x="430.0" y="46.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="aprovacao_automatica" id="BPMNEdge_aprovacao_automatica">
+        <omgdi:waypoint x="410.0" y="98.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="265.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="265.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="39.0" width="100.0" x="346.0" y="130.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="251.0" y="78.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="78.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="375.0" y="78.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="78.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="525.0" y="166.0"></omgdi:waypoint>
+        <omgdi:waypoint x="550.0" y="166.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="aprovado" id="BPMNEdge_aprovado">
+        <omgdi:waypoint x="565.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="572.0" y="238.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="100.0" x="575.0" y="220.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="fim_processo_finalizado_nao_precificado" id="BPMNEdge_fim_processo_finalizado_nao_precificado">
+        <omgdi:waypoint x="581.0" y="166.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="166.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="13.0" width="100.0" x="581.0" y="166.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

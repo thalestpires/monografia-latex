@@ -42,6 +42,37 @@ Devido a sua natureza adaptável e ferramentas de gerenciamento de tarefas e de 
 
 \section{Como automatizar um processo?}\label{sec:redmine-automatizar_processo}
 
+O primeiro passo para modelar um processo é identificar como representá-lo na estrutura do Redmine. A metodologia que propomos neste trabalho 
+
+Nesta seção descreveremos como utilizar o potencial de configuração do Redmine para utilizá-lo fora do contexto de gerenciamento de projetos e aplicá-lo como ferramenta de automatização de processos. Explicaremos, também, como definir os atores de um processo, as ações permitidas a cada um deles, especificar os fluxos de trabalho e como gerenciar os dados relevantes ao seu contexto.
+
+
+\subsection{Modelando processos}\label{subsection:redmine-automatizar_processo-criacao}
+
+criar um tipo de tarefa (\ref{subsection:redmine-estrutura_basica-tracker}), porque eles representam a modelagem do processo.
+
+É nos tipos de tarefa que definimos as etapas de um processo, representadas pelas situações (\ref{subsection:redmine-estrutura_basica-status}), quais campos (\ref{subsection:redmine-estrutura_basica-custom_fields}) são utilizados para guardar informações relativas à execução de um processo.
+
+Durante a criação do tipo de tarefa são definidas qual situação (\ref{subsection:redmine-estrutura_basica-status}) é a padrão aquele tipo, em quais projetos ele é utilizado e quais campos (\ref{subsection:redmine-estrutura_basica-custom_fields}) ele utiliza para guardar informações.
+
+\subsection{Definição dos atores}\label{subsection:redmine-automatizar_processo-atores}
+
+\subsubsection{Escolha dos atores}
+
+Os atores de um processo são definidos nos projetos que o tipo de tarefa está relacionado. Ao associar um papel a um usuário (ou grupo de usuários) é definido quais papéis ele terá naquele projeto - no caso de um grupo de usuários ser associado a um projeto, todos os seus membros herdarão os papéis atribuídos a ele.
+
+\subsubsection{Definição das permissões dos atores}
+
+As permissões dos atores do processo são definidas nos papéis de usuários (\ref{subsection:redmine-estrutura_basica-role}). Neles é possível escolher se um usuário pode ter tarefas atribuídas a ele, quais tarefas ele consegue visualizar e quais ações ele é capaz de realizar sobre as tarefas (e.g. Ver Chamados, Editar Chamados, Adicionar Chamados, Adicionar Notas).
+
+\subsection{Fluxo de trabalho}
+
+A configuração do fluxo de trabalho é onde se orquestra o processo e define-se como os usuários podem manipular os dados dos chamados. Essa configuração é divida em duas partes, permissão de campos e transição de estados, e é feita separadamente para cada papel.
+
+As permissões de campos ditam de que forma um usuário pode interagir com os campos dos chamados que pode editar dependendo da situação atual do chamado. Baseado nessas permissões um campo pode ficar disponível somente para leitura, editável, ou obrigatório.
+
+A transição de estados define para quais situações um chamado pode ser alterado de acordo com o estado atual, determinando para quais etapas de um processo um usuário consegue conduzir a tarefa.
+
 \section{Plugins}\label{sec:redmine-plugins}
 O Redmine foi desenvolvido de forma a ser extensível por meio de plugins. É possível modificar um funcionalidade da ferramenta, ou criar novas funcionalidades sem precisar alterar o código desta. Os plugins são desenvolvidos em Rails, a mesma linguagem de programação do Redmine. 
 

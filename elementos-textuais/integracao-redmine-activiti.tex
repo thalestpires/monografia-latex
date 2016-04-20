@@ -11,7 +11,6 @@ Para atingir este objetivo, criamos um plugin para o Redmine que possibilita a c
 A integração tem por objetivo centralizar o máximo de funcionalidades no Redmine, deixando transparente tanto para o usuário comum como o gestor, a existência de um motor BPM por trás.
 
 \subsection{Funcionalidades}\label{sec:integracao_redmine_activiti_implementacao_funcionalidades}
-
 \subsubsection{Conexão com o Activiti }\label{sec:integracao_redmine_activiti_inplementacao_funcionalidades_conexão}
 Para iniciar a utilização do plugin é necessário configurar os detalhes para conexão com o Activiti BPM.
 Após colocar o servidor, login e senha, também é preciso disparar os jobs que rodam continuamente para sincronizar os processos e tarefas entre o Redmine e o Activiti.
@@ -50,14 +49,53 @@ O próximo passo é editar uma versão para configurar mais detalhes:
 \item \textbf{Estados de conclusão do processo} - 
 Na modelagem do processo podem ser configurados diferentes eventos de término. Nesta seção são configurados quais status no Redmine vão representar cada evento.
 
-\item \textbf{Status inicial das tarefas do processo} - 
-Aqui são listadas as etapas do tipo tarefa humana presentes na modelagem. Para cada uma é possível definir o status com o qual deve ser criada cada sub-tarefa que representa a tarefa humana em questão.
+\item \textbf{Configuração das tarefas do processo} - 
+Aqui são listadas as etapas do tipo tarefa humana presentes na modelagem. Para cada uma é possível definir o status com o qual deve ser criada cada sub-tarefa que representa a tarefa humana em questão, e definir um tipo de tarefa diferente para cada uma. Caso o campo \textbf{Tipo} não seja preenchido, a sub-tarefa será do mesmo tipo da tarefa original. Caso contrário, a sub-tarefa terá o tipo definido, que pode ser usado para representar um novo processo.
 
 \item \textbf{Campos personalizados utilizados pelo processo} - Na modelagem, o evento de inicialização, bem como as tarefas humanas de um processo possuem campos de formulário. Os valores destes campos são sincronizados junto com as tarefas do Redmine para o Activiti e vice-versa. Para guardar estes campos nas tarefas do Redmine são utilizados campos personalizados. Nesta seção portanto, deve ser selecionado cada campo customizado que representará os campos definidos no processo.
 
-
 \end{itemize}
 
+\subsection{Detalhes do desenvolvimento}\label{sec:integracao_redmine_activiti_implementacao_detalhes_desenvolvimento}
+
+\subsubsection{Linguagens}\label{sec:integracao_redmine_activiti_implementacao_detalhes_desenvolvimento_linguagens}
+
+O plugin desenvolvido para Redmine foi desenvolvido em Ruby, utilizando a framework Rails. A linguagem open source e orientada a objetos, disponibilizada ao público em 1995, foi criada por Yukihiro “Matz” Matsumoto, inspirada nas linguagens Perl, Smalltalk, Eiffel, Ada e Lisp, suas linguagens preferidas. Em 2006, o Ruby atingiu aceitação massiva, com a formação de grupos de usuários em todas as principais cidades do mundo e com as conferências sobre Ruby com lotação esgotada. Ruby está entre as 10 linguagens mais populares, segundo o índice TIOBE de abril de 2016, que se baseia nas buscas com o nome da linguagem como palavra chave. A framework Rails é uma biblioteca (ou gema) que extende de Ruby. Foi criada por David Heinemeier Hansson em 2004 para a utilização desta linguagem para o desenvolvimento de aplicações web. Isto é feito através da comunicação da comunicação do Ruby com HTML, CSS e Javascript.
+
+As modificações feitas no Activiti foram feitas em Java, a linguagem que em que este foi desenvolvido. Criado em 1995 por um time da Sun (chamado de "Green Team"), Java é uma linguagem interpretada orientada a objetos,  que é independente de plataforma, pois sempre executa na JVM (Java Virtual Machine). Segundo o índice TIOBE de abril de 2016 é a linguagem mais popular no mundo.
+
+\subsubsection{Banco de dados}\label{sec:integracao_redmine_activiti_implementacao_detalhes_desenvolvimento_bd}
+
+\subsubsection{Sincronizacao}\label{sec:integracao_redmine_activiti_implementacao_detalhes_desenvolvimento_sincronizacao}
+
+\paragraph{Definição de processo}
+
+% Ao fazer o deploy de um processo através da interface do Redmine é disparado um serviço que acessa a API REST do Activiti, executando uma requisição POST que efetivamente executa o deploy, adicionando a modelagem do processo em questão à lista de definições de processos ativos, que podem ser iniciados.
+
+% O código a seguir monta a requisição POST repository/deployments enviando o arquivo .bpmn, que retorna o deployment\_id do processo cujo deploy acaba de ser feito.
+
+% \codejava{Ruby}{alg:LABEL_CODE_5}{codigos/deploy_process.rb}
+
+
+% Após executado o serviço é iniciado um job que acessa, através de um outro serviço que busca a definição à partir do deployment\_id. As informações do processo que são recuperadas consistem das tarefas humanas definidas, campos de formulário, variáveis de processo e outros detalhes.
+
+% O código a seguir monta a requisição GET que recupera a definição de um processo.
+
+% \codejava{Ruby}{alg:LABEL_CODE_4}{codigos/process_definition_by_deployment_id.rb}
+
+% O código a seguir consiste do job que centraliza a sincronização de uma definição de processo no momento do deploy. 
+
+% \codejava{Ruby}{alg:LABEL_CODE_3}{codigos/sinchronize_process_definition_job.rb}
+
+
+\paragraph{Tarefas humanas}\label{sec:integracao_redmine_activiti_implementacao_detalhes_desenvolvimento_sincronizaca_human_task}
+
+\paragraph{Inicialização de um processo}\label{sec:integracao_redmine_activiti_implementacao_detalhes_desenvolvimento_sincronizacao_processo}
+% Sempre que uma tarefa é criada, caso ela esteja vinculada a um processo BPM, um serviço é disparado. Este serviço executa 
+
+
+\subsubsection{Configuracao do processo}\label{sec:integracao_redmine_activiti_implementacao_detalhes_desenvolvimento_configuracao}
+% Escrever sobre os detalhes de como modelar um processo que se comunica com o Redmine
 
 \section{Customização do Activiti}\label{sec:integracao_redmine_activiti-implementacao-activiti}
 

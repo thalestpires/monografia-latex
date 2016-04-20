@@ -1,33 +1,113 @@
 \chapter{Activiti BPM}\label{chp:activiti}
 
 \section{Introdução}\label{sec:activiti-introducao}
-Criado em 2010 por ex-integrantes do projeto jBPM, o Activiti BPM é um projeto de código aberto sob a licença Apache V2, que provê um motor BPM leve e completo sob a especificação BPMN 2.0. O Activiti é desenvolvido sob a linguagem de programação Java e é facilmente integrável com aplicações existentes por sua leveza e API amigável.
+Criado em 2010 por ex-integrantes do projeto jBPM, o Activiti BPM é um projeto de código aberto sob a licença Apache, que provê um motor BPM leve e completo sob a especificação BPMN 2.0. O Activiti é desenvolvido sob a linguagem de programação Java e é facilmente integrável com aplicações existentes por sua leveza e API amigável.
 
 Neste capítulo vamos apresentar como o Activiti BPM pode ser utilizado na automatização de processos de negócio. Vamos apresentar ainda, a capacidade de modelagem de processos através da notação BPMN utilizada pelo Activiti. Por último vamos abordar as vantagens e limitações desta ferramenta frente às demais opções do mercado.
 
 \section{BPMN}\label{sec:activiti-bpmn}
 A BPMN (Business Process Management Notation) foi criada para representar processos de negócio em forma de diagrama, através de uma notação padronizada e de fácil entendimento por diferentes profissionais, sejam desenvolvedores, analistas de negócio ou gestores. Foi criada inicialmente pelo BPMI (Business Process Management Initiative) em 2004, mas atualmente é mantida e atualizada pela OMG (Object Management Group). Sua versão mais atual é a BPMN 2.0, publicada em 2011.
 
-A notação foi concebida sob a perspectiva de cobrir a falta de entendimento entre diferentes departamentos e organizações a cerca de um determinado processo ou conjunto de processos, algo muito frequente no ambiente corporativo. Além disso, através de sua notação padronizada em XML (Extensible Markup Language), diferentes ferramentas podem fazer o uso de sua auto-descrição para orquestração de processos de negócio, sejam eles automatizáveis ou não.
+A notação foi concebida sob a perspectiva de cobrir a falta de entendimento entre diferentes departamentos e organizações a cerca de um determinado processo ou conjunto de processos, algo muito frequente no ambiente corporativo. Além disso, através de sua notação padronizada em XML (Extensible Markup Language), diferentes ferramentas podem fazer o uso de sua auto-descrição para automatizar a orquestração de processos de negócio.
 
-A notação define quatro grupos distintos de objetos para permitir a diagramação de um fluxo de negócio. Os objetos são classificados em artefatos, agrupadores, conectores e objetos de fluxo. São utilizadas figuras geométricas, como retângulos e círculos, além de linhas pontilhadas e tracejadas, entre outros elementos para representar cada um dos objetos que constituem a notação.
-
-1) http://searchcio.techtarget.com/definition/Business-Process-Modeling-Notation
-
-2) http://blog.iprocess.com.br/2012/11/um-guia-para-iniciar-estudos-em-bpmn-i-atividades-e-sequencia
-
-3) https://www.fluig.com/blog/entendendo-melhor-o-bpmn/
-
-\begin{figure}
+\begin{figure}[H]
   \centering
-  \includegraphics[width=1.0\textwidth]{imagens/bpmn_example.png}
-  \caption{Exemplo de processo representado em BPMN}
+  \includegraphics[width=1.0\textwidth]{imagens/ProcessoDePrecificacao.png}
+  \caption{Processo representado em BPMN}
   \label{fig:exemplo_bpmn}
 \end{figure}
 
-\section{Gestão de processos com o Activiti BPM}\label{sec:activiti-gestao_processos}
+\subsection{Objetos}\label{sec:activiti-bpmn_objetos}
 
-O Activiti é constituído através de diversos componentes que juntos possibilitam o aproveitamento do ecossistema BPM. Com exceção do Activiti Engine, pois este constitui o módulo principal da ferramenta, todos os demais módulos são opcionais e dependem do cenário de utilização da ferramenta.
+A notação define quatro grupos distintos de objetos para permitir a diagramação de um fluxo de negócio. Os objetos são classificados em artefatos, agrupadores, conectores e objetos de fluxo. São utilizadas figuras geométricas, como retângulos e círculos, além de linhas pontilhadas e tracejadas, entre outros elementos para representar cada um dos objetos que constituem a notação.
+
+\subsubsection{Objetos de Fluxo}\label{sec:activiti-bpmn_objetos_fluxo}
+
+Os objetos de fluxo são os principais elementos do BPMN pois constiuem os elementos chave na execução do fluxo de trabalho.
+
+
+\begin{enumerate}
+    \item Eventos
+    
+    Objetos utilizados para representar que algo "aconteceu" durante a execução do fluxo. São exemplos de eventos: "chamada de sistema externo recebida", "envio de cancelamento do processo recebido", "a cada 1 minuto". A notação BPMN 2.0 define mais de 60 tipos distintos de eventos.
+    
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{imagens/bpmn_events.jpg}
+    \caption{Tipos de Eventos}
+    \label{fig:bpmn_events}
+    \end{figure}
+    
+    \item Atividades
+    
+    Objetos utilizados para representar uma unidade de trabalho a ser realizada no processo. Existem dois tipos básicos de atividades: tarefas ou subprocessos. As tarefas podem ser executadas por humanos ou por algum tipo de serviço, como um seviço web ou mesmo a execução de algum código interno no processo.
+    
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{imagens/bpmn_activities.jpg}
+    \caption{Tipos de Atividades}
+    \label{fig:bpmn_activities}
+    \end{figure}
+    
+    \item Decisões
+    
+    São objetos utilizados para controlar o fluxo de trabalho, possibilitando o direcionamento do processo para a escolha de único sentido, ou para controlar a divergência e convergência de fluxos paralelos.
+    
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{imagens/bpmn_gateways.png}
+    \caption{Tipos de Decisões}
+    \label{fig:bpmn_gateways}
+    \end{figure}
+\end{enumerate}
+
+
+\subsubsection{Agrupadores}\label{sec:activiti-bpmn_objetos_agrupadores}
+
+    São objetos utilizados para organizar visualmente a distribuição dos demais objetos do processo em contêineres que representam a responsabilidade de determinado ator do processo.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagens/bpmn_swimlanes.jpg}
+    \caption{Tipos de Agrupadores}
+    \label{fig:bpmn_swimlanes}
+    \end{figure}
+
+\subsubsection{Conectores}\label{sec:activiti-bpmn_objetos_conectores}
+
+    São utilizados para interligar objetos de fluxo. São classificados em conectores de sequência, mensagem ou associação.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagens/bpmn_connectors.jpg}
+    \caption{Tipos de Conectores}
+    \label{fig:bpmn_conectors}
+    \end{figure}
+
+\subsubsection{Artefatos}\label{sec:activiti-bpmn_objetos_artefatos}
+
+    São utilizados para acrescentar informações adicionais a modelagem do processo. 
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imagens/bpmn_artifacts.jpg}
+    \caption{Tipos de Artefatos}
+    \label{fig:bpmn_artifacts}
+    \end{figure}
+
+\section{Arquitetura}\label{sec:activiti-gestao_processos}
+
+
+O Activiti é constituído através de diversos componentes que possibilitam o aproveitamento do ecossistema BPM. Com exceção do Activiti Engine, pois este constitui o módulo principal da ferramenta, todos os demais módulos são opcionais e dependem do cenário de utilização do BPMS.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{imagens/activiti_architecture.png}
+\caption{Arquitetura do Activiti BPM}
+\label{fig:activiti_architecture}
+\end{figure}
+
+\subsection{Componentes}\label{sec:activiti-gestao_processos_componentes}
 
 O Activiti Engine é o componente principal, pois nele estão presentes o motor de funcionamento do BPM e as APIs para acesso e controle da ferramenta. Este componente é disponibilizado através de um simples arquivo JAR, modelo de arquivo padrão para bibliotecas da linguaguem Java. Sendo assim, o motor BPM pode ser facilmente utilizado em diferentes projetos Java através da inclusão dessa biblioteca como dependência.
 
@@ -37,6 +117,8 @@ O Activiti Designer, é um plugin criado para a interface de desenvolvimento Ecl
 
 O Activiti Explorer é a interface web padrão com o usuário, disponibilizada para o controle e execução de processos. Através dessa interface, o usuário pode instalar novas definições de processos, iniciar ou cancelar processos, finalizar ou delegar tarefas.
 
+\subsection{Requisitos de software}\label{sec:activiti-gestao_processos_requisitos}
+
 O Activiti exige um ambiente Java JDK versão 6 ou superior para seu correto funcionamento. Além do ambiente Java configurado, também é necessário um banco de dados para suportar a persistência das informações dos processos. Uma variedade de bancos é suportada pelo BPMS, são eles: H2, MySQL, Oracle, Postgres, DB2 e SQL Server.
 
 
@@ -44,18 +126,11 @@ O Activiti exige um ambiente Java JDK versão 6 ou superior para seu correto fun
 
 Nesta seção, iremos detalhar uma abordagem simplificada, porém suficiente para ilustrar os passos necessários para a automatização de um processo de negócio na ferramenta.  O processo de negócio utilizado como base é o mesmo apresentado na seção de introdução deste trabalho.
 
-\subsection{Configuração do Ambiente}\label{sec:activiti-automatizar_processo_configuracao}
+\subsection{Preparação do Ambiente}\label{sec:activiti-automatizar_processo_preparacao_ambiente}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=1.0\textwidth]{imagens/bpmn_example.png}
-  \caption{Exemplo de processo representado em BPMN}
-  \label{fig:exemplo_bpmn}
-\end{figure}
+O primeiro passo necessário é a preparação do ambiente de execução do BPM. Para isso, existem duas possibilidades principais. A primeira opção é a inclusão da dependência do Activiti BPM em um projeto Java web específico, e posterior construção do pacote WAR para execução em um servidor Java web. Outra opção, mais simples e que será utilizada nesta demonstração, é a utilização de um pacote WAR pronto para funcionamento, disponibilizado diretamente no site da ferramenta (www.activiti.org).
 
-O primeiro passo necessário é a preparação do ambiente de execução do BPM. Para isso, existem duas possibilidades principais. A primeira opção é a inclusão da dependência do Activiti BPM em um projeto Java web específico, e posterior construção do pacote WAR para execução em um servidor Java web. Outra opção, mais simples e que será utilizada nesta seção, é a utilização de um pacote WAR pronto para funcionamento (activiti-explorer.war), disponibilizado diretamente no site da ferramenta (www.activiti.org).
-
-O arquivo disponibilizado no portal da ferramenta já inclui o Activiti Engine e o Activiti Explorer num único pacote, pré-configurados com um banco de dados em memória H2 que dá suporte ao seu funcionamento e não requer nenhuma configuração adicional. Para iniciar a execução do BPMS, basta a instalação do artefato em um servidor Java web como o Apache Tomcat 7 que será utilizado neste trabalho.
+O arquivo disponibilizado no portal da ferramenta já inclui o Activiti Engine e o Activiti Explorer num único pacote, pré-configurados com um banco de dados em memória H2 que dá suporte ao seu funcionamento e não requer nenhuma configuração adicional. Para iniciar a execução do BPMS, basta a instalação do artefato em um servidor Java web como o Apache Tomcat 7.
 
 Após a instalação do artefato e inicialização do Tomcat, o portal pode ser acessado através do endereço http://127.0.0.1:8080/activiti-explorer, dado que o Tomcat tenha sido instalado na sua configuração padrão. O usuário e senha padrão para acesso ao portal como administrador é kermit.
 
@@ -67,9 +142,14 @@ Ao criar um novo diagrama através da opção Activiti Diagram, o Activiti Desig
 
 Para a modelagem do processo na paleta visual, é necessário arrastar os componentes visuais dispostos na aba lateral a fim de obter a modelagem desejada do processo na notação BPMN.
 
-<< inserir imagem da modelagem do processo de exemplo >>
+Ao final da modelagem, o arquivo .BPMN é gerado para ser utilizado na instalação do processo no motor de processos.
 
-Ao final da modelagem, o arquivo .bpmn é criado e será utilizado na instalação do processo na seção seguinte.
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{imagens/ProcessoDePrecificacao}
+\caption{Processo modelado no Activiti BPM}
+\label{fig:processo_precificacao}
+\end{figure}
 
 \subsection{Instalação do Processo}\label{sec:activiti-automatizar_processo_modelagem}
 
@@ -78,3 +158,12 @@ Ao final da modelagem, o arquivo .bpmn é criado e será utilizado na instalaç�
 \section{Vantagens e Limitações}\label{sec:activiti-vantages_limitacoes}
 
 
+1) http://searchcio.techtarget.com/definition/Business-Process-Modeling-Notation
+
+2) http://blog.iprocess.com.br/2012/11/um-guia-para-iniciar-estudos-em-bpmn-i-atividades-e-sequencia
+
+3) https://www.fluig.com/blog/entendendo-melhor-o-bpmn/
+
+4) http://www.devmedia.com.br/introducao-ao-business-process-modeling-notation-bpmn/29892
+
+5) http://blog.goodelearning.com/bpmn/common-bpmn-modeling-mistakes-best-practices-basic-events/

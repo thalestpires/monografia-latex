@@ -2,6 +2,7 @@
 
 \section{Introdução}\label{sec:redmine-introducao}
 Neste capítulo vamos explicar como o Redmine, uma ferramenta de gerenciamento de projetos foi utilizada para gestão de processos, ilustrando com um exemplo. Vamos apresentar ainda, a capacidade extensiva desta ferramenta através do desenvolvimento de plugins. Por último vamos abordar as limitações do Redmine que nos motivaram a desenvolver algo novo para atingir nosso objetivo em automatização de processos.
+O Redmine\cite{redmine} é uma ferramenta de gerenciamento de projetos open-source. Foi criada por Jean-Philippe Lang em 2006. Desenvolvido em Ruby, utilizando a framework Rails, tem como objetivo dar flexibilidade de configuração ao usuário, e também ao desenvolvedor. A versão 3.1 deste software foi utilizada neste trabalho.
 
 
 \section{Estrutura básica do Redmine}\label{sec:redmine-estrutura_basica}
@@ -43,18 +44,17 @@ Devido a sua natureza adaptável e ferramentas de gerenciamento de tarefas e de 
 
 \section{Como automatizar um processo?}\label{sec:redmine-automatizar_processo}
 
-O primeiro passo para modelar um processo é identificar como representá-lo na estrutura do Redmine. A metodologia que propomos neste trabalho 
+O primeiro passo para modelar um processo é identificar como representá-lo na estrutura do Redmine.
 
-Nesta seção descreveremos como utilizar o potencial de configuração do Redmine para utilizá-lo fora do contexto de gerenciamento de projetos e aplicá-lo como ferramenta de automatização de processos. Explicaremos, também, como definir os atores de um processo, as ações permitidas a cada um deles, especificar os fluxos de trabalho e como gerenciar os dados relevantes ao seu contexto.
+Nesta seção descreveremos como utilizar o potencial de configuração do Redmine para utilizá-lo fora do contexto de gerenciamento de projetos e aplicá-lo como ferramenta de automatização de processos. Explicaremos, também, como definir os atores de um processo, as ações permitidas a cada um deles, especificar os fluxos de trabalho e como gerenciar os dados relevantes ao seu contexto. Estes passos serão ilustrados na implementação do caso de uso descrito na figura \ref{fig:exemplo_bpmn}.
 
 
 \subsection{Modelando processos}\label{subsection:redmine-automatizar_processo-criacao}
 
-criar um tipo de tarefa (\ref{subsection:redmine-estrutura_basica-tracker}), porque eles representam a modelagem do processo.
-
 É nos tipos de tarefa que definimos as etapas de um processo, representadas pelas situações (\ref{subsection:redmine-estrutura_basica-status}), quais campos (\ref{subsection:redmine-estrutura_basica-custom_fields}) são utilizados para guardar informações relativas à execução de um processo.
 
 Durante a criação do tipo de tarefa são definidas qual situação (\ref{subsection:redmine-estrutura_basica-status}) é a padrão aquele tipo, em quais projetos ele é utilizado e quais campos (\ref{subsection:redmine-estrutura_basica-custom_fields}) ele utiliza para guardar informações.
+
 
 \subsection{Definição dos atores}\label{subsection:redmine-automatizar_processo-atores}
 
@@ -79,5 +79,22 @@ O Redmine foi desenvolvido de forma a ser extensível por meio de plugins. É po
 
 Para possibilitar extensões de funcionalidades que envolvem enxertar pedaços de código no meio de uma classe ou de uma tela, o Redmine disponibiliza hooks em diversas partes da ferramenta. São tags com um identificador da parte do código em que estão inseridas. E para utilizar este hook basta incluir um hook listener num plugin, e direcionar qual arquivo ou método um determinado hook vai disparar.
 
-\section{Limitações}\label{sec:redmine-limitacoes}
+\section{Precificação manual}\label{sec:redmine-impl-caso-uso}
 
+Para implementar o caso de uso foi criado um tipo de tarefa chamado Precificação manual. Também foram criadas as situações Novo, Solicitar troca de preço, Aguardando aprovação, Não aprovado, Trocar preço, Encerrado.
+
+As situações acima representam cada etapa do processo, que na modelagem em bpmn são caixinhas. A transição de situação é feita pelo responsável pela tarefa naquele momento, que também altera para o novo responsável na próxima etapa, caso necessário. A etapa de troca de preço consiste da operação de um sistema externo, e assim que concluída, o responsável conclui o processo, passando-o para a próxima etapa.
+
+Esta implementação mostra como processos simples podem ser modelados no Redmine desta forma, se aproveitando de toda a sua estrutura de tarefas. Desta forma é possível que um usuário acompanhe processos, execute etapas manuais no processo, preenchendo formulários, e tomando decisões as próximas etapas, como a etapa de aprovação.
+
+A ferramenta escolhida se mostrou uma solução barata, de rápida implementação, e que permite que o próprio usuário administrador fique responsável pela manutenção. Muitos cenários problemáticos, como apresentado no capítulo anterior, são simples, e para que rodem melhor precisam de uma padronização e automação mínima, que a utilização do Redmine pode oferecer, e transformar o quadro de uma área inteira de um negócio.
+
+\section{Cenário Complexo de Aprovação}\label{sec:cenario-complexo}
+
+Apesar do grande potencial de configuração do Redmine e suportar a automatização de processos simples, não é possível utilizá-lo em situações de maior complexidade. O mapeamento de processos neste sistema é baseada em uma máquina de estados cujas transições são definidas apenas pelo estado corrente do processo e do perfil de acesso dos usuários. Portanto, fluxos mais complexos que possuem, por exemplo, atividades executadas em paralelo ou regras de negócio dependentes de variáveis do contexto de cada execução de um processo não são possíveis de ser modelados apenas com as configurações padrão do Redmine.
+
+Nesses casos em que as funcionalidades padrão do Redmine não atendem aos requisitos de um processo, é possível estender as suas capacidades através da criação de plugins que ampliam as possibilidades de mapeamento de fluxos de negócio mais complicados.
+
+Para o caso de uso descrito na seção \ref{sec:problema-caso_de_uso}, onde a solicitação de aprovação de precificação precisa da aprovação de 2 gestores, paralelamente, seria necessário o desenvolvimento de funcionalidades complementares às do Redmine para realizar a verificação de necessidade de aprovação (caso a alteração de preço seja superior a 30\%), criar tarefas distintas para aprovação de cada um dos gestores.
+
+O uso de plugins para aumentar o poder de mapeamento de processos torna o Redmine uma ferramenta ainda mais flexível, permitindo utilizar todas as funcionalidades que já provê e acrescentando novas formas de controle de fluxos de processos. No entanto, muitos desses mecanismos adicionais criados com base nessa arquitetura já existem em outros tipos de ferramenta feitas com o propósito específico de gerenciamento de processo como são os BPMS.

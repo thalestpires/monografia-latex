@@ -10,13 +10,13 @@ O acesso mais rápido e eficiente às informações estabelece melhores condiç�
 
 Neste trabalho, apresentaremos uma alternativa para garantir que a execução das atividades das empresas sejam realizadas da maneira esperada e aumentar a capacidade de monitoramento de cada uma das etapas, que é a automatização de processos. 
 
-\section{Caso de Uso}\label{sec:problema-caso_de_uso}
+\section{Exemplo}\label{sec:problema-exemplo}
 
 Ao longo deste trabalho, iremos utilizar o processo descrito a seguir como caso de uso para cada uma das demonstrações de automatização das ferramentas utilizadas para o desenvolvimento da solução proposta.
 
 Em um cenário de operação de um portal de e-commerce, é muito importante a gestão dos preços praticados pela empresa nas diferentes categorias que compõe o mix de produtos ofertados ao consumidor. Erros cometidos por uma precificação manual indevida podem levar a altos prejuízos financeiros e ações na justiça por parte dos consumidores, além de afetar a imagem da corporação perante o mercado. 
 
-O caso ocorrido com a gigante Walmart no portal brasileiro em dezembro de 2013, exemplifica bem o cenário descrito no parágrafo anterior. Neste caso, um computador que custava R\$2.398 reais foi anunciado por R\$580, o que representava um diferença de 75\% a menor em relação ao valor original. Este caso foi noticiado pela imprensa na época, e também houve bastante repercusão nas redes sociais, deixando muitos clientes insatisfeitos pelo cancelamento da compra (http://oglobo.globo.com/economia/defesa-do-consumidor/walmart-erra-preco-de-produto-em-site-cancela-venda-irrita-clientes-11098550). 
+O caso ocorrido com a gigante Walmart no portal brasileiro em dezembro de 2013, exemplifica bem o cenário descrito no parágrafo anterior. Neste caso, um computador que custava R\$2.398 reais foi anunciado por R\$580, o que representava um diferença de 75\% a menos em relação ao valor original. Este caso foi noticiado pela imprensa na época, e também houve bastante repercussão nas redes sociais, deixando muitos clientes insatisfeitos pelo cancelamento da compra (http://oglobo.globo.com/economia/defesa-do-consumidor/walmart-erra-preco-de-produto-em-site-cancela-venda-irrita-clientes-11098550). 
 
 Nesse sentido, torna-se necessária a implantação de um processo de precificação manual que envolva a avaliação de regras que limitem a troca de preço sem a aprovação de alçadas superiores. Essa nova gestão tem por objetivo trazer mais qualidade e segurança nas mudanças de preço solicitadas pelos diferentes precificadores das categorias do site, alinhando assim a gestão de preços do portal e evitando trocas de preço equivocadas ou não autorizadas pelos gestores.
 
@@ -34,3 +34,14 @@ A imagem a seguir descreve de forma visual o fluxo do processo descrito anterior
   \caption{Processo de Precificação Manual}
   \label{fig:exemplo_bpmn}
 \end{figure}
+
+
+\section{Cenário Simples de Aprovação}\label{sec:cenario-simples}
+
+Para solucionar os problemas descritos anteriormente é preciso primeiramente definir bem o processo e documentá-lo de alguma forma. O BPMN é a notação que utilizaremos neste trabalho para documentar um processo, como foi feito no caso de uso acima.
+
+Uma vez definido e documentado, faz-se necessário buscar uma ferramenta que possibilite a automatização do processo.
+Vamos considerar o caso de uso acima como ponto de partida para a busca desta solução. Consideraremos também que o fluxo de aprovação simples com aprovações sequenciais e com uma quantidade de aprovadores pequena e definida.
+
+Para automatizar processos simples como este, e com bastante interação humana resolvemos utilizar o Redmine. Desenvolvido como gestor de projetos, seu módulo mais utilizado é o gerenciamento de tarefas, que será utilizado por nós para gerenciar processos, pois permite a interação do usuário com a tarefa.
+

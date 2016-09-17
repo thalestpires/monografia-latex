@@ -1,0 +1,23 @@
+\chapter{Conclusão}\label{chp:conclusao}
+
+\section{Resultado}\label{sec:conclusao-resultados}
+
+O objetivo deste trabalho foi disponibilizar uma forma de automatizar processos simples e complexos, que permitisse uma boa gestão das etapas do processo que são executadas por pessoas.
+
+Após avaliar algumas alternativas, foi escolhido como solução a integração do Activiti BPM e o Redmine, que atendeu muito bem aos requisitos. Utilizando o Redmine como gestor de processos, com o plugin BPM Integration, este se tornou uma ferramenta muito poderosa, em que o usuário interage com um processo complexo que roda de forma transparente no Activiti BPM.
+
+\section{Melhorias Propostas}\label{sec:conclusao-melhorias}
+
+\subsection{Activiti Kickstart}
+
+http://www.jorambarrez.be/blog/2011/01/05/adhoc-workflow-with-activiti-kickstart/
+
+\subsection{Activiti Modeler}
+
+\subsection{Sincronização usando Redis}
+
+O trabalho desenvolvido possui um mecanismo de sincronização entre o Redmine e o Activiti BPM, que foi construído utilizando a gema Delayed Job. Com ele, é possível agendar a execução de uma tarefa, em que um registro é criado na tabela delayed_job no MySql, e os workers são disparados numa periodicidade pré-definida. 
+
+\subsection{Utilizar um BRM}
+
+\subsection{Generalização do BPMS utilizado}

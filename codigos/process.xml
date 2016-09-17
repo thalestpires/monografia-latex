@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <collaboration id="Collaboration">
+    <participant id="processo_precificacao" name="Processo de Precificacao" processRef="process_pool1"></participant>
+  </collaboration>
+  <process id="process_pool1" name="process_pool1" isExecutable="true">
+    <laneSet id="laneSet_process_pool1">
+      <lane id="analista" name="Analista">
+        <flowNodeRef>solicitar_troca_preco</flowNodeRef>
+        <flowNodeRef>avaliar_alcada_precificacao</flowNodeRef>
+        <flowNodeRef>decisao_aprovacao</flowNodeRef>
+        <flowNodeRef>inicio</flowNodeRef>
+      </lane>
+      <lane id="aprovador" name="Aprovador">
+        <flowNodeRef>exclusivegateway2</flowNodeRef>
+        <flowNodeRef>aprovar_precificacao</flowNodeRef>
+        <flowNodeRef>processo_finalizado_nao_precificado</flowNodeRef>
+      </lane>
+      <lane id="sistema" name="Sistema">
+        <flowNodeRef>trocar_preco</flowNodeRef>
+        <flowNodeRef>processo_finalizado_precificado</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="inicio" name="Inicio"></startEvent>
+    <userTask id="solicitar_troca_preco" name="Solicitar Troca de Preco"></userTask>
+    <sequenceFlow id="flow1" sourceRef="inicio" targetRef="solicitar_troca_preco"></sequenceFlow>
+    <userTask id="aprovar_precificacao" name="Aprovar Precificacao">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="aprovadores"></multiInstanceLoopCharacteristics>
+    </userTask>
+    <serviceTask id="trocar_preco" name="Trocar Preco"></serviceTask>
+    <sequenceFlow id="fim_processo_finalizado_precificado" sourceRef="trocar_preco" targetRef="processo_finalizado_precificado"></sequenceFlow>
+    <exclusiveGateway id="decisao_aprovacao" name="Decisao da Necessidade de Aprovacao"></exclusiveGateway>
+    <sequenceFlow id="aprovacao_necessaria" name="Aprovacao Necessaria" sourceRef="decisao_aprovacao" targetRef="aprovar_precificacao"></sequenceFlow>
+    <sequenceFlow id="aprovacao_automatica" name="Aprovacao Automatica" sourceRef="decisao_aprovacao" targetRef="trocar_preco"></sequenceFlow>
+    <businessRuleTask id="avaliar_alcada_precificacao" name="Avaliar Alcada de Precificacao"></businessRuleTask>
+    <sequenceFlow id="flow9" sourceRef="solicitar_troca_preco" targetRef="avaliar_alcada_precificacao"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="avaliar_alcada_precificacao" targetRef="decisao_aprovacao"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Decisao da Aprovacao"></exclusiveGateway>
+    <sequenceFlow id="flow11" sourceRef="aprovar_precificacao" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="aprovado" name="Aprovado" sourceRef="exclusivegateway2" targetRef="trocar_preco"></sequenceFlow>
+    <sequenceFlow id="fim_processo_finalizado_nao_precificado" name="Nao Aprovado" sourceRef="exclusivegateway2" targetRef="processo_finalizado_nao_precificado"></sequenceFlow>
+    <endEvent id="processo_finalizado_nao_precificado" name="Fim">
+      <terminateEventDefinition></terminateEventDefinition>
+    </endEvent>
+    <endEvent id="processo_finalizado_precificado" name="Fim">
+      <terminateEventDefinition></terminateEventDefinition>
+    </endEvent>
+  </process>
+</definitions>

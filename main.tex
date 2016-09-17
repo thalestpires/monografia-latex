@@ -7,6 +7,10 @@
 \usepackage{minted}
 \usepackage[export]{adjustbox}
 \usepackage{float}
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %I N I C I O  D O  D O C U M E N T O
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,7 +38,7 @@
 \location{Rio~de~Janeiro}{RJ}{Brasil}
 
 % mês e ano de defesa
-\date{junho}{2016}
+\date{agosto}{2016} %"agosto a gente consegue (by arnaud)
 \maketitle
 
 \startdocument
@@ -86,11 +90,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \startcontent
 \input{elementos-textuais/introducao}
-\input{elementos-textuais/automatizacao-processos}
-\input{elementos-textuais/problema}
 \input{elementos-textuais/redmine}
+\input{elementos-textuais/bpm}
 \input{elementos-textuais/activiti}
 \input{elementos-textuais/integracao-redmine-activiti}
+\input{elementos-textuais/conclusao}
 \pagebreak
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -105,7 +109,7 @@
 % A P E N D I C E
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Retirar esta parte se o trabalho não tiver anexos
-%\appendix
-%\input{elementos-postextuais/apendice}
+\appendix
+\input{elementos-postextuais/apendice}
 
 \end{document}

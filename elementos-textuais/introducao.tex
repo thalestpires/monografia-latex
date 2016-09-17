@@ -1,9 +1,79 @@
 \chapter{Introdução}\label{chp:introducao}
 
-\section{Motivação}\label{sec:introducao-motivacao}
-Os processos de negócio consistem numa sequência de atividades e serviços que  encadeados cumprem determinado objetivo ou função na organização em que é desempenhado. A automatização de processos de negócio consiste na aplicação de tecnologia, de forma que uma ou mais atividades de um processo possam ser automatizadas, reduzindo assim a dependência de atuação humana para sua execução.
+\section{Processos de Negócio}\label{sec:introducao-processos_negocio}
 
-\section{Objetivos}\label{sec:introducao-objetivo}
-O objetivo geral deste trabalho é propor uma solução para automatização de processos complexos que também contam com interação humana, inclusive durante o fluxo destes. Vamos apresentar uma ferramenta que permite a modelagem de fluxos variados, facilita a configuração e implementação, bem como a utilização contínua por usuários com conhecimentos básicos de processo e o acompanhamento deste por um gerente.
+As organizações, sejam de grandes dimensões ou não, são constituídas por recursos humanos e não-humanos que interagem entre si, como por exemplo na troca de informações operacionais entre diferentes áreas de uma empresa. Segundo o BPM CBOK\cite{bpm_cbok}, "processo é uma agregação de atividades e comportamentos executados por humanos ou máquinas para alcançar um ou mais resultados".
 
-\section{Organização do texto}\label{sec:introducao-organizacao_texto}
+Organizações que adotam processos de negócio bem definidos, estão melhor habilitadas a operar sua rotina e encontram mais facilidade na identificação de pontos de falha, oportunidades de melhorias na execução e planejamento desses processos. Isso acaba por viabilizar o aumento da qualidade na entrega de produtos e serviços para seus clientes ao longo do tempo.
+
+\section{Gestão de Processos de Negócio}\label{sec:introducao-gestaoo}
+
+Os processos de negócio, quando realizados de forma desorganizada e despadronizada, levam à ineficiência organizacional pelo simples fato de sua execução não otimizada. Isso ocasiona elevação dos custos, aumento no retrabalho, insatisfação dos colaboradores e a consequente diminuição na qualidade dos serviços relacionados. Portanto, torna-se altamente necessário uma boa gestão dos processos, a fim de que esses problemas sejam evitados ou mitigados a tempo e não tornem-se um câncer corporativo. 
+
+Diferentemente de métodos tradicionais, que são focados no desempenho das unidades funcionais de uma empresa, a adoção do BPM como disciplina de gestão concentra-se no controle e melhoria contínua dos processos funcionais que, na maioria das vezes, permeiam diferentes áreas de negócio. Segundo o BPM CBOK\cite{bpm_cbok}, esta disciplina gerencial "trata processos de negócio como ativos da organização e pressupõe que os objetivos organizacionais podem ser alcançados por meio da definição, desenho, controle e transformação contínua de processos de negócio".
+
+\section{Automatização de Processos de Negócio}\label{sec:introducao-automatizacao}
+
+Uma boa gestão de processos busca padronizar as etapas de um processo, e garantir um acesso mais rápido e eficiente às informações, estabelecendo melhores condições para a execução e controle de processos de negócio. Para atingir este objetivo, conta-se com o suporte de sistemas de informação que auxiliem na execução das etapas do processo de acordo com os padrões definidos. Estes sistemas também precisam acompanhar a flexibilidad da constante mudança dos processos, bem como fornecer ferramentas ao gestor para monitorar e controlar os processos, o que termina por aperfeiçoar a tomada de decisão no nível estratégico organizacional.
+
+A automatização de processos de negócio também reduz a dependência de atuação humana na execução de algumas tarefas mecânicas e repetitivas, que passam a ser executadas pelos sistemas. No entanto, são raros os casos em que a interação humana é totalmente extinta, sendo necessário uma atenção especial para que essas tarefas sejam executadas da maneira e sequência lógica mais otimizada possível.
+
+\section{Exemplo de Processo de Negócio}\label{sec:introducao-caso_real}
+
+A seguir descrevemos uma falha real ocorrida em 2013 com uma gigante do mercado de varejo e apresentaremos uma sugestão para o estabelecimento de um processo que busca solucionar, padronizar e controlar a execução dessa atividade para que o mesmo erro não seja observado. Vale notar que sem a adoção de um sistema que automatize a execução das tarefas, é praticamente inviável o correto estabelecimento deste processo.
+
+Em um cenário de operação de um portal de e-commerce, é muito importante a gestão dos preços praticados pela empresa nas diferentes categorias que compõe o mix de produtos ofertados ao consumidor. Erros cometidos por uma precificação manual indevida podem levar a altos prejuízos financeiros e ações na justiça por parte dos consumidores, além de afetar a imagem da corporação perante o mercado. 
+
+O caso ocorrido com a gigante Walmart no portal brasileiro em dezembro de 2013, exemplifica bem o cenário descrito no parágrafo anterior. Neste caso, um computador que custava R\$2.398 reais foi anunciado por R\$580, o que representava um diferença de 75\% a menos em relação ao valor original. Este caso foi noticiado pela imprensa na época, e também houve bastante repercussão nas redes sociais, deixando muitos clientes insatisfeitos pelo cancelamento da compra\cite{noticia_erro_walmart}. 
+
+Nesse sentido, torna-se necessária a implantação de um processo de precificação manual que envolva a avaliação de regras que limitem a troca de preço sem a aprovação de alçadas superiores. Essa nova gestão tem por objetivo trazer mais qualidade e segurança nas mudanças de preço solicitadas pelos diferentes precificadores das categorias do site, alinhando assim a gestão de preços do portal e evitando trocas de preço equivocadas ou não autorizadas pelos gestores.
+
+O processo inicia com a decisão do analista de uma determinada categoria de produtos do site, pela mudança de preço de um produto. O novo preço do produto é definido pelo analista e enviado para aprovação.
+
+A solicitação enviada pelo analista é avaliada quanto a regra de alçada definida pelos gestores, e caso possua uma variação de preço acima de 30\%, deve passar pela aprovação de dois gestores. Em um cenário real de negócios, certamente a regra seria mais complexa, como por exemplo variando em função da categoria do produto. Entretanto, assumiremos a regra da variação de 30\% nas demonstrações como forma de simplificar o entendimento e aplicação das regras de negócio estabelecidas para o processo.
+
+Após a avaliação da variação de preço, caso tenha sido acima de 30\%, o processo deve ser encaminhado para a aprovação de dois gestores. Caso a variação seja menor ou igual a 30\%, a mudança não requer aprovação. Após isso, a troca de preço será efetuada no portal.
+
+A figura \ref{fig:exemplo_bpmn-problema} a seguir descreve de forma visual o fluxo do processo descrito anteriormente:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{imagens/ProcessoDePrecificacao.png}
+  \caption{Processo de Precificação Manual}
+  \label{fig:exemplo_bpmn-problema}
+\end{figure}
+
+\section{Solução para Automatização e Gestão de Processos}\label{sec:introducao-ferramenta}
+
+Os sistemas de BPM, conhecidos como BPMS, possibilitam a implementação de estratégias de operacionalização organizacional por meio de processos, através de motores de automação e ferramentas que suportam o ciclo de vida dos processos, que consiste essencialmente nas etapas de desenho, implementação, execução e monitoramento dos processos. Melhorias na visibilidade da operação, facilidades para medir e controlar as etapas de um processo através de sua padronização, adoção de tecnologias de integração de sistemas e automatização de tarefas repetitivas são alguns dos pontos positivos identificados com a adoção desse tipo de solução.  
+
+A adoção de soluções BPM não trazem apenas vantagens para o negócio. Importante verificar que mudanças nos processos irão exigir adaptações nas soluções implantadas, o que pode demandar alto custo e tempo. Processos podem ter sua execução impactada devido a situações não previstas durante sua modelagem. Além disso, é necessário a manutenção de profissionais capacitados para gerenciar e suportar essa nova estrutura tecnológica. Portanto, é necessária uma avaliação criteriosa para que a implantação e automatização seja feita na medida correta.
+
+Considerando a complexidade na adoção de ferramentas BPMS para a gestão e automatização de processos, buscamos uma alternativa capaz de suprir e contemplar fluxos de trabalho menos complexos, mas que conseguissem entregar um nível satisfatório de gestão e automação de processos comuns em ambientes corporativos. Essa ferramenta deveria ser de rápida implantação, simples configuração, possuir uma interface amigável com os atores do processo, e possibilitar rápidas customizações no fluxo de trabalho, garantindo assim certo nível de flexibilidade a mudanças.
+
+Para suprir esta demanda, utilizamos o Redmine, ferramenta open-source criada inicialmente para a gestão de projetos. Apesar de não ser o objetivo para o qual foi criado, o Redmine se mostrou bastante aplicável para gestão de processos, principalmente pelo módulo de gerenciamento de tarefas, que seguem um fluxo que pode ser configurado, bem parecido com um processo. Sua flexibilidade, através da capacidade de cadastro de campos personalizados e do desenvolvimento de plugins também contribuíram para que este software se encaixasse bastante como gestor de processos em contextos com processos simples e que dependem da interação de pessoas.
+
+Entretanto, a utilização do Redmine como gerenciador de processos acabou sendo limitada. Se a demanda é automatizar um processo um pouco mais complexo, em que existem fluxos paralelos, ou automatização de algumas etapas por outros sistemas, esta solução não se encaixa.
+
+Com o objetivo de evoluir o Redmine para o atendimento de fluxos de trabalho mais complexos, identificamos a necessidade do desenvolvimento de um motor de processos mais robusto e que possibilitasse novas opções e configurações de fluxos na ferramenta. Entretanto, ao avaliarmos a quantidade de possibilidades de fluxos, o desenvolvimento de uma solução desse porte acabou por convergir por soluções praticadas por ferramentas BPMS. 
+
+Nesse sentido, torna-se interessante propor uma solução integrada que aproveite a capacidade de modelagem e automatização de fluxos complexos de um BPMs. Aliando-se ao Redmine, um portal consolidado com um controle de acesso bastante flexível e completo, com possibilidade de inclusão de campos personalizados para os formulários e cadastros, além da interface amigável e customizável ao usuário. Ressalta-se ainda no Redmine o baixo custo de implantação para automatização de processos e a possibilidade de manutenção dos fluxos de trabalho por usuários sem experiência com desenvolvimento. Nasce assim, a ideia de propor a integração do Redmine com um BPMS. A capacidade de extensão e desenvolvimento de novas funcionalidades do Redmine abriu portas para esta ideia. Alia-se a isto, o fato de que a maioria dos BPMs possuem APIs bem documentadas para integração com outros sistemas.
+
+Para esta integração com o Redmine, buscamos um BPMS que atendesse a determinados critérios. Esta ferramenta deveria ser gratuita, de código-fonte aberto, leve, extensível, contar com uma API REST de fácil integração e possuir uma boa documentação. Ao avaliar as opções disponíveis, identificamos uma ferramenta que se encaixava bastante nos critérios adotados: o Activiti BPM. O Activiti BPM é desenvolvido na linguagem de programação Java\cite{java-history} e é facilmente integrável com aplicações existentes por sua leveza e API\cite{api} amigável, além de utilizar a notação BPMN 2.0 para a modelagem dos processos.
+
+Como principal desafio desta proposta de uma ferramenta integrada de automatização e gestão de processos, identificamos a definição de um modelo de execução que fosse capaz de aliar o benefício de ambas as plataformas, sem acrescentar muita complexidade durante a implantação de uma solução deste porte. Além disso, o desafio da sincronização de dados e estados entre as ferramentas também assumiu papel fundamental nas decisões de modelagem durante o desenvolvimento desta integração.
+
+
+\section{Organização do Texto}\label{sec:introducao-organizacao_texto}
+
+O restante deste texto está organizado da seguinte forma: 
+
+No capítulo 2 apresentaremos como o Redmine é utilizado como gestor de processos.
+
+No capítulo 3 introduziremos informações importantes para o contexto de gestão de processos de negócio, como o BPMN, a notação utilizada para modelar um processo.
+
+No capítulo 4 aprofundaremos na apresentação do Activiti BPM, o BPMs escolhido para a solução final proposta.
+
+No capítulo 5 detalharemos a solução final proposta para automatização de processos de negócio complexos, através da integração do Redmine com o Activiti BPM.
+
+No capítulo 6 apresentaremos os resultados deste trabalho, e as sugestões de melhorias futuras.

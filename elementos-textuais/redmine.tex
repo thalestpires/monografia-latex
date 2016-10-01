@@ -1,9 +1,9 @@
 \chapter{Redmine}\label{chp:redmine}
 
 \section{Introdução}\label{sec:redmine-introducao}
-Neste capítulo vamos explicar como o Redmine, uma ferramenta de gerenciamento de projetos foi utilizada para gestão de processos, ilustrando com um exemplo. Vamos apresentar ainda, a capacidade extensiva desta ferramenta através do desenvolvimento de plugins. Por último vamos abordar as limitações do Redmine que nos motivaram a desenvolver algo novo para atingir nosso objetivo em automatização de processos.
+Neste capítulo vamos explicar como o Redmine, uma ferramenta de gerenciamento de projetos foi utilizada para gestão de processos, ilustrando com um exemplo. Vamos apresentar ainda, a capacidade extensiva desta ferramenta através do desenvolvimento de \textit{plugins}. Por último vamos abordar as limitações do Redmine que nos motivaram a desenvolver algo novo para atingir nosso objetivo em automatização de processos.
 
-O Redmine\cite{redmine} é uma ferramenta open-source de gerenciamento de projetos. Foi criada por Jean-Philippe Lang em 2006. Desenvolvido em Ruby, utilizando a framework Rails, tem como objetivo dar flexibilidade de configuração ao usuário, e também ao desenvolvedor.
+O Redmine\cite{redmine} é uma ferramenta \textit{open-source} de gerenciamento de projetos. Foi criada por Jean-Philippe Lang em 2006. Desenvolvido em \textit{Ruby}, utilizando a \textit{framework} \textit{Rails}, tem como objetivo dar flexibilidade de configuração ao usuário, e também ao desenvolvedor.
 
 
 \section{Estrutura básica do Redmine}\label{sec:redmine-estrutura_basica}
@@ -12,7 +12,7 @@ A estrutura básica de gerenciamento de projetos no Redmine é composta por 6 pr
 
 \subsection{Projetos}\label{subsection:redmine-estrutura_basica-projeto}
 
-Projetos são o objeto central do Redmine. Eles são compostos por diversos módulos que acrescentam diferentes dimensões para o seu gerenciamento, como gerenciamento de tarefas, planejamento de versões, acompanhamento do progresso das tarefas em um diagrama de Gantt, Wiki para organização do conhecimento, entre outros. 
+Projetos são o objeto central do Redmine. Eles são compostos por diversos módulos que acrescentam diferentes dimensões para o seu gerenciamento, como gerenciamento de tarefas, planejamento de etapas e marcos no projeto, acompanhamento do progresso das tarefas em um diagrama de \textit{Gantt}, \textit{Wiki} para organização do conhecimento, entre outros. 
 \subsection{Tarefas}\label{subsection:redmine-estrutura_basica-tarefa}
 
 São as unidades básicas de execução de trabalho dos projetos (\ref{subsection:redmine-estrutura_basica-projeto}). Elas contém os dados relevantes para o seu gerenciamento (e.g, tipo (\ref{subsection:redmine-estrutura_basica-tracker}), situação (\ref{subsection:redmine-estrutura_basica-status})), para a sua execução (e.g, título, descrição) e dados adicionais que podem variar entre os projetos e tipos de tarefa, que são cadastrados como campos personalizados (\ref{subsection:redmine-estrutura_basica-custom_fields}).  
@@ -24,11 +24,11 @@ Tipos de tarefa definem o fluxo de trabalho para a realização de atividades si
 
 \subsection{Situação das tarefas}\label{subsection:redmine-estrutura_basica-status}
 
-Situação indica em qual etapa do processo uma tarefa se encontra. É usada para definir as ações possíveis pelos membros do projeto. Essas ações podem ser diferentes para cada tipo de tarefa.
+Situação indica em qual etapa do processo uma tarefa se encontra. Na tela de fluxo de trabalho, é possível configurar, para cada papel, tipo de tarefa e situação, quais campos do formulário podem ser visualizados, ou editados.
 
 \subsection{Papéis de usuários}\label{subsection:redmine-estrutura_basica-role}
 
-Os papéis de usuários definem quais permissões um usuário possui, como, por exemplo, visualizar, adicionar e editar tarefas, editar Wiki, adicionar e editar documentos. Os papéis são atribuídos aos usuários em cada projeto que ele participa, portanto, ele pode possuir permissões diferentes dependendo do projeto de que ele é membro.
+Os papéis de usuários definem quais permissões um usuário possui, como, por exemplo, visualizar, adicionar e editar tarefas, editar \textit{Wiki}, adicionar e editar documentos. Os papéis são atribuídos aos usuários em cada projeto que ele participa, portanto, ele pode possuir permissões diferentes dependendo do projeto de que ele é membro.
 
 \subsection{Campos Personalizados}\label{subsection:redmine-estrutura_basica-custom_fields}
 
@@ -42,9 +42,9 @@ Todas as configurações e personalizações citadas no último parágrafo são 
 
 Além disso, o módulo de gerenciamento de tarefas permite ao usuário interagir muito bem com o projeto, tendo total controle de suas tarefas, e ainda submetido a um controle de acesso bem detalhado e flexível.
 
-As vantagens citadas acima, e ainda o fato de o Redmine ser open source, com uma grande comunidade de usuários e desenvolvedores foram motivadoras para a utilização deste como um gerenciador de processos.
+As vantagens citadas acima, e ainda o fato de o Redmine ser \textit{open-source}, com uma grande comunidade de usuários e desenvolvedores foram motivadoras para a utilização deste como um gerenciador de processos.
 
-\section{Como automatizar um processo?}\label{sec:redmine-automatizar_processo}
+\section{Modelando processos com o Redmine}\label{sec:redmine-automatizar_processo}
 
 O primeiro passo para modelar um processo é identificar como representá-lo na estrutura do Redmine.
 
@@ -53,7 +53,7 @@ Nesta seção descreveremos como utilizar o potencial de configuração do Redmi
 
 \subsection{Modelando processos}\label{subsection:redmine-automatizar_processo-criacao}
 
-É nos tipos de tarefa que definimos as etapas de um processo, representadas pelas situações (\ref{subsection:redmine-estrutura_basica-status}) e quais campos (\ref{subsection:redmine-estrutura_basica-custom_fields}) são utilizados para guardar informações relativas à execução de um processo.
+Ao configurar um tipo de tarefa, definimos as etapas de um processo, representadas pelas situações (\ref{subsection:redmine-estrutura_basica-status}) e quais campos (\ref{subsection:redmine-estrutura_basica-custom_fields}) são utilizados para guardar informações relativas à execução de um processo.
 
 Durante a criação do tipo de tarefa são definidas qual situação (\ref{subsection:redmine-estrutura_basica-status}) é a padrão para aquele tipo, em quais projetos ele é utilizado e quais campos (\ref{subsection:redmine-estrutura_basica-custom_fields}) ele utiliza para guardar informações.
 
@@ -72,9 +72,23 @@ As permissões dos atores do processo são definidas nos papéis de usuários (\
 
 A configuração do fluxo de trabalho é onde se orquestra o processo e define-se como os usuários podem manipular os dados dos chamados. Essa configuração é divida em duas partes, permissão de campos e transição de estados, e é feita separadamente para cada papel.
 
-As permissões de campos ditam de que forma um usuário pode interagir com os campos dos chamados que pode editar dependendo da situação atual do chamado. Baseado nessas permissões um campo pode ficar disponível somente para leitura, editável, ou obrigatório.
+As permissões de campos ditam de que forma um usuário pode interagir com os campos dos chamados que pode editar dependendo da situação atual do chamado. Baseado nessas permissões um campo pode ficar disponível somente para leitura, editável, ou obrigatório. A figura \ref{fig:redmine_campos} apresenta a tela de configuração de permissão dos campos no Redmine.
 
-A transição de estados define para quais situações um chamado pode ser alterado de acordo com o estado atual, determinando para quais etapas de um processo um usuário consegue conduzir a tarefa.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{imagens/workflow_fields.png}
+  \caption{Tela de configuração de permissão de campos do fluxo de trabalho}
+  \label{fig:redmine_campos}
+\end{figure}
+
+A transição de estados define para quais situações um chamado pode ser alterado de acordo com o estado atual, determinando para quais etapas de um processo um usuário consegue conduzir a tarefa. A figura \ref{fig:redmine_transicoes} apresenta a tela de configuração das transições de estados no Redmine.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{imagens/workflow_status.png}
+  \caption{Tela de configuração das transições de situação do fluxo de trabalho}
+  \label{fig:redmine_transicoes}
+\end{figure}
 
 \section{Precificação manual}\label{sec:redmine-impl-caso-uso}
 
@@ -92,8 +106,8 @@ Apesar do grande potencial de configuração do Redmine e de suportar a automati
 
 Digamos que o processo descrito na figura \ref{fig:exemplo_bpmn} se tornasse um pouco mais complexo, e a troca de preço precisasse ser aprovada por 3 gestores em paralelo, e a reprovação de qualquer um deles reprovasse a precificação. Este caso já não é suportado pelo Redmine. No entanto, este sistema foi desenvolvido de forma a permitir a criação de funcionalidades complementares.
 
-O Redmine foi desenvolvido de forma a ser extensível por meio de plugins. É possível modificar uma funcionalidade da ferramenta, ou mesmo criar novas, sem precisar alterar o código desta. Os plugins são desenvolvidos em Rails, o mesmo \textit{framework} de programação do Redmine. 
+O Redmine foi desenvolvido de forma a ser extensível por meio de \textit{plugins}. Uma funcionalidade da ferramenta pode ser modificada, ou uma nova funcionalidade criada sem precisar alterar o código original do Redmine. Os \textit{plugins} são desenvolvidos em \textit{Rails}, o mesmo \textit{framework} de programação do Redmine. 
 
-Para possibilitar extensões de funcionalidades que envolvem enxertar pedaços de código no meio de uma classe ou de uma tela, o Redmine disponibiliza hooks em diversas partes da ferramenta. São tags com um identificador da parte do código em que estão inseridas. E para utilizar este hook basta incluir um hook listener num plugin, e direcionar qual arquivo ou método um determinado hook vai disparar.
+Para possibilitar extensões de funcionalidades que envolvem enxertar pedaços de código no meio de uma classe ou de uma tela, o Redmine disponibiliza \textit{hooks} em diversas partes da ferramenta. São \textit{tags} com um identificador da parte do código em que estão inseridas. E para utilizar este \textit{hook} basta incluir um \textit{hook} \textit{listener} num \textit{plugin}, e direcionar qual arquivo ou método um determinado \textit{hook} vai disparar.
 
 Muitos plugins desenvolvidos pela comunidade estão disponíveis e podem ser usado para aumentar o poder de modelagem de processos, tornando o Redmine uma ferramenta ainda mais flexível. Esta facilidade abre as portas para estender o Redmine para possibilitar a implementação de processos mais complexos.  

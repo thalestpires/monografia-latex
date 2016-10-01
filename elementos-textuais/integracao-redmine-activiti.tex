@@ -35,13 +35,105 @@ Entretanto, este piloto foi suficiente para identificarmos logo no início que h
 
 Nesse sentido, decidimos abortar a construção desta interface genérica, e partirmos para uma solução de menor complexidade, mas que provesse o ganho almejado com a solução integrada do BPMS ao Redmine.
 
-\section{Integração Activiti BPM}\label{sec:cenario-integracao-activiti}
+\section{Integração Activiti BPM}\label{sec:activiti-bpm}
 
 Dada a complexidade de criação dessa interface genérica, decidimos desenvolver a integração do Redmine com um BPMS específico de mercado. Nesse cenário, diversas dificuldades envolvidas ao processo de generalização deixaram de ser preocupação, e permitiram que o desenvolvimento fosse mais focado na solução do problema inicial, que é trazer mais flexibilidade e alternativas de fluxo de trabalho para o Redmine.
 
 Sendo assim, foi necessário definir um BPMS de mercado que atendesse a alguns critérios. O motor deveria ser gratuito e de código aberto, estando assim alinhado com a proposta open-source do Redmine. Além disso, seria fundamental que a ferramenta fosse leve, extensível e com uma API de fácil utilização e boa documentação, possibilitando assim um rápido entendimento da plataforma e abertura para qualquer modificação ou extensão necessária na ferramenta. Seria desejável também que a ferramenta estivesse em constante evolução e fosse suportada por uma comunidade ativa e que pudesse oferecer suporte para dúvidas encontradas durante o processo de integração.
 
 Ao avaliarmos as possibilidades, identificamos uma ferramenta que se encaixava bastante nos critérios adotados, o Activiti BPM. O Activiti BPM é uma ferramenta de código aberto, compartilhado no GitHub\cite{activiti_github}, possui extensa documentação\cite{activiti-userguide} e dispobiliza uma API REST (arquitetura oficialmente adotada pelo \textit{framework} Ruby on Rails desde sua versão 2.0, lançada em dezembro de 2007\cite{rails_rest_support}) facilitando a comunicação com o Redmine, que é escrito nesta linguagem. 
+
+\subsection{Activiti BPM}\label{sec:activiti}
+Criado em 2010 por ex-integrantes do projeto jBPM\cite{bpm_jbpm}, o Activiti BPM\cite{bpm_activiti} é um projeto de código aberto sob a licença Apache\cite{apache_license}, que proporciona um motor BPM leve, estável e de fácil integração. O Activiti BPM é desenvolvido na linguagem de programação Java\cite{java-history} e é facilmente integrável com aplicações existentes por sua leveza e API\cite{api} amigável, além de utilizar a notação BPMN 2.0 para a modelagem dos processos.
+
+Neste capítulo vamos apresentar os componentes do Activiti BPM, os requisitos de software para seu funcionamento e informações sobre o ambiente de execução e modelagem do processo.
+
+\subsubsection{Componentes}\label{sec:automatizacao_processos-gestao_processos}
+
+O Activiti BPM é constituído por diversos componentes que possibilitam o aproveitamento do ecossistema BPM. Com exceção do \textit{Activiti Engine}, pois esse constitui o módulo principal da ferramenta, todos os demais módulos são opcionais e dependem do cenário de utilização do BPMS.
+
+A figura \ref{fig:activiti_componentes} apresenta os componentes do Activiti BPM: \textit{Activiti Modeler}, \textit{Activiti Designer}, \textit{Activiti Kickstart}, \textit{Activiti Engine}, \textit{Activiti Explorer} e \textit{Activiti REST}. Os componentes são classificados nas categorias \textit{Modeling} (Modelagem), \textit{Runtime} (Tempo de Execução) e \textit{Management} (Gerenciamento). Esses componentes serão apresentados na seção \ref{sec:automatizacao_processos-gestao_processos_componentes} a seguir.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{imagens/activiti_components_overview.png}
+\caption{Componentes do Activiti BPM\cite{activiti_componentes}}
+\label{fig:activiti_componentes}
+\end{figure}
+
+\paragraph{Activiti Engine}\label{sec:automatizacao_processos-gestao_processos_activiti_engine}
+
+O \textit{Activiti Engine} é o componente principal, pois nele estão presentes o motor de funcionamento do BPM e as APIs para acesso e controle da ferramenta. Este componente é disponibilizado através de um simples arquivo JAR\cite{jar}, modelo de arquivo padrão para bibliotecas da linguaguem Java. Sendo assim, o motor BPM pode ser facilmente utilizado em diferentes projetos Java através da inclusão dessa biblioteca como dependência.
+
+\paragraph{Activiti Explorer}\label{sec:automatizacao_processos-gestao_processos_activiti_explorer}
+
+O \textit{Activiti Explorer} é a interface web padrão com o usuário, disponibilizada para o controle e execução de processos. Através dessa interface, o usuário pode instalar novas definições de processos, iniciar ou cancelar processos, finalizar ou delegar tarefas. A figura \ref{fig:activiti_explorer} abaixo demonstra a lista de tarefas do Activiti Explorar disponíveis para atuação do usuário.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{imagens/activiti_explorer.png}
+\caption{Activiti Explorer}
+\label{fig:activiti_explorer}
+\end{figure}
+
+\paragraph{Activiti REST}\label{sec:automatizacao_processos-gestao_processos_activiti_rest}
+
+O \textit{Activiti REST} disponibiliza o acesso às funcionalidades principais do Activiti através de uma interface REST. Isso simplifica o acesso às suas funcionalidades por diferentes linguagens de programação e facilita a integração com diferentes aplicações de interface com o usuário, como por exemplo aplicações móveis.
+
+\paragraph{Activiti Designer}\label{sec:automatizacao_processos-gestao_processos_activiti_designer}
+
+O \textit{Activiti Designer}, é um plugin criado para a interface de desenvolvimento Eclipse, que permite ao analista ou desenvolvedor modelar processos na notação BPMN graficamente, ao mesmo tempo em que é gerado automaticamente a notação do processo em XML. A figura \ref{fig:activiti_designer} abaixo demonstra a IDE\cite{ide} \textit{Eclipse} já com o plugin \textit{Activiti Designer} instalado para a modelagem do processo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{imagens/activiti_designer.png}
+\caption{Activiti Designer}
+\label{fig:activiti_designer}
+\end{figure}
+
+\paragraph{Activiti Modeler}\label{sec:automatizacao_processos-gestao_processos_activiti_modeler}
+
+O \textit{Activiti Modeler} possibilita a modelagem de processos BPMN 2.0 graficamente utilizando o navegador. O Activiti Modeler já não está em desenvolvimento ativo pela equipe principal, mas permanece disponível como parte da aplicação web Activiti Explorer.
+
+\paragraph{Activiti Kickstart}\label{sec:automatizacao_processos-gestao_processos_activiti_kickstart}
+
+O \textit{Activiti Kickstart} foi criado para facilitar a criação de processos \textit{adhoc} através de uma interface web simples e intuitiva, sem que o usuário necessite conhecer BPMN, já que são utilizados tabelas e formulários simples para a definição do fluxo de trabalho. Seu objetivo é oferecer um meio rápido para construção de processos mais simples, reduzindo assim o custo e tempo investido na automatização desses processos.
+
+\subsubsection{Requisitos de Software}\label{sec:automatizacao_processos-requisitos}
+
+O Activiti BPM requer um ambiente Java JDK versão 6 ou superior para seu funcionamento. Além do ambiente Java configurado, também é necessário um banco de dados para suportar a persistência das informações dos processos. Uma variedade de bancos é suportada pelo BPMS, são eles: H2\cite{db_h2}, MySQL\cite{db_mysql}, Oracle\cite{db_oracle}, PostgreSQL\cite{db_postgres}, DB2\cite{db_db2} e SQL Server\cite{db_sqlserver}.
+
+\subsubsection{Ambiente de Execução}\label{sec:automatizacao_processos-ambiente_desenvolvimento}
+
+Existem basicamente duas possibilidades principais para o ambiente de execução. A primeira opção é a inclusão da dependência do Activiti BPM em um projeto Java web, e o deploy do pacote WAR\cite{war} para execução em um servidor Java web. Outra opção, mais simples, é a utilização do pacote WAR já pronto para funcionamento, disponibilizado diretamente no site da ferramenta\cite{activiti_download}.
+
+O arquivo disponibilizado no portal da ferramenta já inclui o \textit{Activiti Engine} e o \textit{Activiti Explorer} num único pacote, pré-configurados com um banco de dados em memória H2\cite{h2_inmemory} que dá suporte ao seu funcionamento e não requer nenhuma configuração adicional, já que é um banco de dados \textit{in-memory}\cite{h2_inmemory}. Para iniciar a execução do BPMS, é necessário o deploy do artefato em um servidor Java como o Apache Tomcat 7\cite{tomcat7}.
+
+Após a instalação do artefato e inicialização do Tomcat, o portal pode ser acessado através do endereço \textit{http://127.0.0.1:8080/activiti-explorer}, dado que o Tomcat tenha sido instalado na sua configuração padrão. O usuário e senha padrão para acesso ao portal como administrador é a palavra \textit{kermit}, referência ao personagem dos Muppets\cite{kermit}. A figura \ref{fig:activiti_login} abaixo demonstra a tela de autenticação do \textit{Activiti Explorer}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{imagens/activiti_login.png}
+\caption{Login do Activiti Explorer}
+\label{fig:activiti_login}
+\end{figure}
+
+\subsubsection{Modelagem do Processo}\label{sec:automatizacao_processos-modelagem_processo}
+
+Para a modelagem do processo, é necessária a instalação do plugin \textit{Activiti Designer} na ferramenta de desenvolvimento \textit{Eclipse}\cite{eclipse}. Mais detalhes sobre como proceder com a instalação do plugin estão disponíveis no guia de instalação disponível no site\cite{activiti_designer}.
+
+Ao criar um novo diagrama através da opção de criar um novo \textit{Activiti Diagram}, o \textit{Activiti Designer} cria um arquivo \textit{.bpmn} e disponibiliza duas visões para a modelagem do processo. Uma aba visual, contendo o desenho do processo, e outra aba textual, com a notação em XML. Ambas as abas estão interligadas e podem ser utilizadas para a modelagem, sendo a visual mais simples para o desenvolvimento do processo.
+
+Para a modelagem do processo na paleta visual, é necessário arrastar os componentes visuais dispostos na aba lateral a fim de obter a modelagem desejada do processo na notação BPMN.
+
+Ao final da modelagem, o arquivo \textit{.bpmn} é gerado para ser utilizado no \textit{deploy} do processo no motor de processos. A figura \ref{fig:processo_precificacao} representa o processo modelado na ferramenta e já descrito na notação BPMN 2.0, e o código gerado em XML pode ser consultado no apêndice \ref{code:process_bpmn}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{imagens/ProcessoDePrecificacao}
+\caption{Processo modelado no Activiti BPM}
+\label{fig:processo_precificacao}
+\end{figure}
 
 \section{Customização do Redmine}\label{sec:integracao_redmine_activiti-implementacao}
 
@@ -74,14 +166,28 @@ O banco de dados utilizado neste trabalho foi o MySQL 5.7. Este é o banco mais 
 
 \subsection{Comunicação entre o Redmine e Activiti}\label{sec:integracao_redmine_activiti_implementacao_sincronizacao}
 
-Para possibilitar a comunicação entre o Activiti BPM e o Redmine foi desenvolvido um mecanismo de sincronização.
+Para possibilitar a integração entre o Activiti BPM e o Redmine, foi necessário mapear, no último, uma estrutura que represente o modelo de dados do BPMS. Também é preciso garantir a atualização das informações relativas ao andamento dos fluxos dos processos de forma que eles possam ser desempenhados corretamente através do Redmine. Assim, fez-se necessário o desenvolvimento de um mecanismo de sincronização entre as duas aplicações.
+
 Toda a comunicação foi desenhada de forma que o Redmine funcionasse como uma interface do Activiti BPM. Portanto, o primeiro sempre consome a API REST do BPMS para disparar ações, ou ler informações do mesmo.
 
-\subsubsection{Definição de processo}
+O tópico \ref{sec:integracao_redmine_activiti_sincronizacao-deploy_processo}, descreve a utilização do Redmine para  a criação de novas definições de processos no Activiti e como os novos dados são mapeados de volta para o Redmine. 
+
+Os tópicos \ref{sec:integracao_redmine_activiti_sincronizacao-inicializacao_processo} e \ref{sec:integracao_redmine_activiti_sincronizacao-finalizacao_human_task} mostram, respectivamente, como o Redmine é utilizado para iniciar novas instâncias de processos (relativos às definições previamente configuradas) e finalizar as tarefas em andamento.
+
+Por fim, os tópicos \ref{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task} e \ref{sec:integracao_redmine_activiti_sincronizacao-status_processo} explicam como é feita a sincronização dos dados presentes no Activiti para o Redmine, criando as novas tarefas e atualizando o \textit{status} dos processos até serem concluídos no BPMS, respectivamente.
+
+\subsubsection{Definição de processo}\label{sec:integracao_redmine_activiti_sincronizacao-deploy_processo}
 
 Para o Redmine assumir a função de interface principal do Activiti BPM, foi desenvolvida a funcionalidade do Activiti Explorer que permite ao usuário fazer o deploy de um processo através dele, uma ação que faz upload da modelagem BPMN e disponibiliza o processo para ser iniciado. Esta funcionalidade dispara um serviço que acessa a API REST do Activiti BPM, executando uma requisição POST que efetivamente executa o deploy, adicionando a modelagem do processo em questão à lista de definições de processos ativos, que podem ser iniciados.
 
-Após executado o serviço, é iniciado um job que busca a definição à partir do deployment\_id. As informações do processo que são recuperadas consistem das tarefas humanas definidas, campos de formulário, variáveis de processo e outros detalhes.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{imagens/sync_deploy_process.png}
+\caption{Diagrama de sequência de \textit{deploy} de processo}
+\label{fig:sync_deploy_process}
+\end{figure}
+
+A figura \ref{fig:sync_deploy_process} ilustra o processo de deploy. Após executado o serviço, é iniciado um job que busca a definição do processo recém criado. As informações do processo que são recuperadas consistem das tarefas humanas definidas, campos de formulário, variáveis de processo e outros detalhes.
 Na figura \ref{fig:process_list} é possível ver a tela da lista de processos ativos desenvolvida no plugin BPM Integration.
 
 \begin{figure}[H]
@@ -91,10 +197,18 @@ Na figura \ref{fig:process_list} é possível ver a tela da lista de processos a
 \label{fig:process_list}
 \end{figure}
 
-\subsubsection{Inicialização de um processo}\label{sec:integracao_redmine_activiti_sincronizacao_inicializacao_processo}
-Sempre que uma tarefa é criada, caso ela esteja vinculada a um processo BPM (configuração provida pelo plugin), um serviço é disparado. Este serviço executa uma requisição POST à API REST do Activiti, que dispara uma nova instancia de um processo no mesmo. A requisição carrega as informações da tarefa a ser criada, inclusive os valores dos campos customizados, que foram mapeados para algum campo de formulário da definição de processo do BPMS.
+\subsubsection{Inicialização de um processo}\label{sec:integracao_redmine_activiti_sincronizacao-inicializacao_processo}
+Sempre que uma tarefa vinculada a um processo BPM é criada (configuração provida pelo plugin), é disparado um procedimento de sincronização ilustrado na figura \ref{fig:start_process_diagram}. Este procedimento executa uma requisição à API REST do Activiti, que inicia uma nova instância de um processo no mesmo. A requisição carrega as informações da tarefa recém-criada, inclusive os valores dos campos customizados, que foram mapeados para algum campo de formulário da definição de processo do BPMS. O status da tarefa do Redmine é, então, atualizado a partir do retorno do serviço do Activiti e é disparado o procedimento de sincronização de tarefas descrito na seção \ref{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task}.
 
-A figura abaixo mostra a tela de criação de tarefas no Redmine, que dispara um novo processo.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{imagens/sync_start_process.png}
+\caption{Diagrama de sequências ilustrando criação de processo no ActivitiBPM a partir do Redmine}
+\label{fig:start_process_diagram}
+\end{figure}
+
+
+A figura \ref{fig:new_issue} mostra a tela de criação de tarefas no Redmine, que dispara um novo processo.
 
 \begin{figure}[H]
 \centering
@@ -119,10 +233,45 @@ Os valores preenchidos para os campos padrão do Redmine são gravados no proces
 \label{fig:plugin_process_settings}
 \end{figure}
 
-\subsubsection{Tarefas humanas}\label{sec:integracao_redmine_activiti_implementacao_detalhes_desenvolvimento_sincronizacao_human_task}
+\subsubsection{Tarefas humanas}\label{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task}
 
 Como dito no capítulo  \ref{chp:bpm}, as tarefas humanas do Activiti BPM são representadas no Redmine por subtarefas das tarefas que representam processos. Assumimos que todo processo do Activiti BPM configurado no Redmine possui tarefas humanas, uma vez que o principal objetivo é ajudar o usuário a interagir com o processo.
-Quando uma tarefa humana é criada no decorrer do processo, o Redmine precisa refletir isto, de modo que esta tarefa possa ser executada pelo ator correto e o processo siga seu curso. O espelhamento desta tarefa no Redmine é totalmente automatizado, através de um job que roda a cada 5 minutos e verifica se existem tarefas humanas abertas que não foram espelhadas, para cada processo ativo no Redmine. Os valores dos campos do processo de uma tarefa são populados nos campos padrão e campos personalizados conforme configurados na tela exibida na figura \ref{fig:plugin_process_settings}
+Quando uma tarefa humana é criada no decorrer do processo, o Redmine precisa refletir isto, de modo que esta tarefa possa ser executada pelo ator correto e o processo siga seu curso. O espelhamento desta tarefa no Redmine é totalmente automatizado através de um \textit{job}, que é executado periodicamente e verifica se existem tarefas humanas abertas que não foram espelhadas para cada processo ativo no Redmine. Os valores dos campos do processo de uma tarefa são populados nos campos padrão e campos personalizados conforme configurados na tela exibida na figura \ref{fig:plugin_process_settings}. Este \textit{job} também pode ser executado de maneira síncrona se necessário, como ocorre quando um novo processo é iniciado ou uma tarefa finalizada.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{imagens/sync_create_tasks.png}
+\caption{Diagrama de sequência de criação de tarefas do Activiti no Redmine}
+\label{fig:sync_bpm_tasks}
+\end{figure}
+
+A figura \ref{fig:sync_bpm_tasks} descreve este procedimento: primeiramente, o Redmine realiza uma consulta à API REST do Activiti para buscar as tarefas que estão em andamento, então verifica quais ainda não foram mapeadas para si, e, por fim, cria as novas tarefas, guardando referência da tarefa original do Activiti para que não sejam criadas novamente em uma futura reexecução do processo.
+
+\subsubsection{Finalização de tarefas}\label{sec:integracao_redmine_activiti_sincronizacao-finalizacao_human_task}
+
+Quando uma tarefa do Redmine é finalizada, é necessário resolver a sua contra-parte no Activiti, quando houver, dando seguimento ao fluxo do processo no motor BPM. A figura \ref{fig:close_bpm_tasks} mostra a sequência de processamento realizada com a conclusão da tarefa no Redmine.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{imagens/sync_close_tasks.png}
+\caption{Diagrama de sequência de finalização de tarefas do Activiti pelo Redmine}
+\label{fig:close_bpm_tasks}
+\end{figure}
+
+Após o usuário concluir a tarefa, o Redmine utiliza a API REST do Activiti para resolver a tarefa correspondente no BPMS. Uma vez a tarefa resolvida, os campos da tarefa principal do Redmine que representa o processo do Activiti são atualizados com as alterações realizadas na tarefa e são executados, em sequência, os \textit{jobs} de sincronização de tarefas e de processos, descritos nas seções \ref{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task} e \ref{sec:integracao_redmine_activiti_sincronizacao-status_processo}, respectivamente.
+
+\subsubsection{Atualização de processos}\label{sec:integracao_redmine_activiti_sincronizacao-status_processo}
+
+O último tópico que necessita ser sincronizado é o \textit{}{status} do processo no Redmine, para refletir o andamento do fluxo do processo no BPMS. Este procedimento é executado periodicamente para manter as tarefas do Redmine sempre atualizadas em relação ao Activiti.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{imagens/sync_process_status.png}
+\caption{Diagrama de sequência de sincronização de status do processo}
+\label{fig:sync_process_status}
+\end{figure}
+
+A figura \ref{fig:sync_process_status} mostra a sequência de execução desta sincronização. O Redmine consulta a API REST do Activiti para buscar os dados do andamento do processo. A partir dos dados obtidos é possível determinar se houve alteração na situação do processo ou ele foi terminado. Neste último caso, além de atualizar a situação do chamado no Redmine, também é escrita a mensagem de conclusão configurada no \textit{plugin}.
 
 \section{Customização do Activiti BPM}\label{sec:integracao_redmine_activiti-implementacao-activiti}
 

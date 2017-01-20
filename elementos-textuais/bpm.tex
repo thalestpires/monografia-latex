@@ -1,22 +1,24 @@
-\chapter{BPM}\label{chp:bpm}
+\chapter{Gerenciamento de Processos de Negócios}\label{chp:bpm}
 
-\section{Processos de Negócio}\label{sec:bpm-processos}
-Um processo de negócio é definido por um conjunto de atividades coordenadas, relacionadas entre si, que envolvem diferentes pessoas, procedimentos, áreas e tecnologias com o objetivo de gerar valor para a empresa, seja em forma de produtos ou serviços, internos ou externos.
+\section{Introdução}\label{sec:bpm-intro}
+
 
 \section{BPM}\label{sec:bpm-bpm}
 BPM\cite{bpm} é o acrônimo em inglês para \textit{Business Process Management}, ou em português \textit{Gerenciamento de Processos de Negócio}. Seu principal objetivo é oferecer uma abordagem sistemática para a execução, adaptação e melhoria de processos de negócio em um ambiente de constantes mudanças. 
 
+Um processo de negócio é definido por um conjunto de atividades coordenadas, relacionadas entre si, que envolvem diferentes pessoas, procedimentos, áreas e tecnologias com o objetivo de gerar valor para a empresa, seja em forma de produtos ou serviços, internos ou externos.
+
 Diferentemente de métodos tradicionais, que são focados no desempenho das unidades funcionais de uma empresa, a adoção do BPM como disciplina de gestão concentra-se no controle e melhoria contínua dos processos funcionais que, na maioria das vezes, permeiam diferentes áreas de negócio.
 
-A aplicação do BPM não deve necessariamente envolver tecnologia. Na prática, diversas melhorias de processos podem ser alcançadas sem a utilização de tecnologia ou sistemas de informação. Por exemplo, através da análise e mapeamento de processos de logística, muitas vezes é possível implementar melhorias no processo através do sequenciamento otimizado das tarefas que o constituem, implicando em menos tempo despendido para sua execução.
+A aplicação do BPM não deve necessariamente envolver sistemas. Na prática, diversas melhorias de processos podem ser alcançadas sem a utilização de tecnologia ou sistemas de informação. Por exemplo, através da análise e mapeamento de processos de logística, muitas vezes é possível implementar melhorias no processo através do sequenciamento otimizado das tarefas que o constituem, implicando em menos tempo despendido para sua execução.
 
-Entretanto, quando avaliamos a aplicação de BPM em processos críticos, complexos ou até mesmo processos simples mas executados em maior escala, a aplicação de tecnologia torna-se fundamental. A melhoria e automatização de processos através da aplicação de tecnologia é comumente vista na utilização de sistemas de informação para suportar a execução de diferentes tipos de processos, como ocorre normalmente um CSC\cite{csc} (Centro de Serviços Compartilhados).
+Entretanto, quando avaliamos a aplicação de BPM em processos críticos, complexos ou até mesmo processos simples mas executados em maior escala, a aplicação de tecnologia torna-se fundamental. A melhoria e automatização de processos através da aplicação de tecnologia é comumente vista na utilização de sistemas de informação para suportar a execução de diferentes tipos de processos, como ocorre normalmente em um CSC\cite{csc} (Centro de Serviços Compartilhados).
 
 
 \section{BPMN}\label{sec:bpm-bpmn}
 BPMN\cite{bpmn} é o acrônimo em inglês para \textit{Business Process Management Notation}, ou em português \textit{Notação de Gerenciamento de Processos de Negócio}. Foi criada para representar processos de negócio em forma de diagrama, através de uma notação padronizada e de fácil entendimento por diferentes profissionais, sejam eles desenvolvedores, analistas de negócio ou gestores. Foi criada inicialmente pelo BPMI\cite{bpmi} (Business Process Management Initiative) em 2004, entretanto é mantida atualmente pela OMG\cite{omg} (Object Management Group). Sua versão mais atual é a BPMN 2.0\cite{bpmn20}, publicada em 2011.
 
-A notação foi concebida sob a perspectiva de cobrir a falta de entendimento entre diferentes departamentos e organizações a cerca de um determinado processo ou conjunto de processos, algo muito frequente no ambiente corporativo. Além disso, através de sua notação padronizada em XML\cite{xml} (Extensible Markup Language), diferentes ferramentas podem fazer o uso de sua auto-descrição para informatizar a orquestração de processos de negócio.
+A notação foi concebida sob a perspectiva de cobrir a falta de entendimento entre diferentes departamentos e organizações a cerca de um determinado processo ou conjunto de processos, algo muito frequente no ambiente corporativo. Além disso, através de sua notação padronizada em XML\cite{xml} (Extensible Markup Language), diferentes ferramentas podem fazer uso de meta-dados para informatizar a orquestração de processos de negócio.
 
 
 
@@ -27,12 +29,12 @@ A notação foi concebida sob a perspectiva de cobrir a falta de entendimento en
   \label{fig:exemplo_bpmn}
 \end{figure}
 
-A figura \ref{fig:exemplo_bpmn} mostra um exemplo de processo modelado na ferramenta Activiti Designer que será abordada em mais detalhes no capítulo \ref{chp:activiti-bpm} e representa o cenário descrito na seção \ref{sec:problema-exemplo}. Os elementos do modelo serão explicados ao longo deste capítulo.
+A Figura \ref{fig:exemplo_bpmn} mostra um exemplo de processo modelado na ferramenta Activiti Designer que será abordada em mais detalhes na seção \ref{sec:activiti} e representa o cenário descrito na seção \ref{sec:introducao-caso_real}. Os elementos do modelo serão explicados ao longo deste capítulo.
 
 
 \subsection{Objetos}\label{sec:bpm-bpmn_objetos}
 
-A notação define quatro grupos distintos de objetos para permitir a diagramação de um fluxo de negócio. Os objetos são classificados em artefatos, agrupadores, conectores e objetos de fluxo. São utilizadas figuras geométricas, como retângulos e círculos, além de linhas pontilhadas e tracejadas, entre outros elementos gráficos para representar cada um dos objetos que constituem a notação.
+A notação define quatro grupos distintos de objetos para permitir a diagramação de um fluxo de negócio. Os objetos são classificados em objetos de fluxo, artefatos, agrupadores e conectores. São utilizadas figuras geométricas, como retângulos e círculos, além de linhas pontilhadas e tracejadas, entre outros elementos gráficos para representar cada um dos objetos que constituem a notação.
 
 \subsubsection{Objetos de Fluxo}\label{sec:bpm-bpmn_objetos_fluxo}
 
@@ -42,7 +44,7 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
 \begin{enumerate}
     \item Eventos
     
-    Objetos utilizados para representar que algo "aconteceu" durante a execução do fluxo. São exemplos de eventos: "chamada de sistema externo recebida", "envio de cancelamento do processo recebido", "a cada 1 minuto". A notação BPMN 2.0 define mais de 60 tipos distintos de eventos. A figura \ref{fig:bpmn_events} mostra os diferentes tipos de eventos e suas notações.
+    Objetos utilizados para representar que algo aconteceu durante a execução do fluxo. São exemplos de eventos: "chamada de sistema externo recebida", "envio de cancelamento do processo recebido", "a cada 1 minuto". A notação BPMN 2.0 define mais de 60 tipos distintos de eventos. A Figura \ref{fig:bpmn_events} mostra alguns dos diferentes tipos de eventos e suas notações.
     
     \begin{figure}[H]
     \centering
@@ -51,11 +53,28 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
     \label{fig:bpmn_events}
     \end{figure}
     
-    Na figura, os elementos estão divididos de acordo com o momento do processo em que podem ocorrer: início -- são os eventos que podem criar uma nova instância de processo, intermediários -- são os eventos que ocorrem durante a execução do processo, e finais -- são os eventos que indicam fim do processo, seja ele por sucesso ou erro.
+    Na dimensão horizontal da Figura \ref{fig:bpmn_events}, os eventos estão classificados de acordo com o momento do processo em que podem se manifestar. Os elementos \textit{start} são os eventos que podem criar uma nova instância de processo. Os elementos \textit{intermediate} são os eventos que ocorrem durante a execução do processo. Finalmente, os elementos \textit{end} são os  eventos que indicam o fim do processo, seja por sucesso ou erro.
+    
+    Na dimensão vertical da Figura \ref{fig:bpmn_events}, os eventos estão classificados de acordo com seu tipo, conforme descrito a seguir:
+    \begin{itemize}
+      \item  Os eventos \textit{message} são utilizados para indicar um ponto do processo em que ocorre comunicação com um agente externo ou outro processo.
+      \item Os eventos \textit{timer} são utilizados para indicar que o processo deverá parar naquele ponto e aguardar até que a condição de tempo parametrizada se torne verdadeira, como por exemplo, uma data específica ou um período de tempo.
+      \item Os eventos \textit{error} são utilizados para indicar que ocorreu um erro durante o fluxo de execução do processo. 
+      \item Os eventos \textit{escalation} são utilizados para indicar que um outro participante do processo deve executar determinada ação que o processo continue seu fluxo.
+      \item Os eventos \textit{cancel} indicam que o processo e suas atividades devem ser canceladas.
+       \item Os eventos \textit{compensation} são utilizados para desfazer ações que já haviam sido completadas e não são mais desejadas e necessitam ser revertidas.
+       \item Os eventos \textit{conditional} são utilizados para pausar o processo, até que uma determinada regra de negócio se torne verdadeira.
+       \item Os eventos \textit{link} representam uma conexão entre pontos distantes do processo, sendo bastante utilizados em processo com elevado número de atividades para facilitar a visualização do processo. 
+      \item Os eventos \textit{signal} são utilizados para comunicação entre processos, porém, diferentemente dos eventos \textit{message} que possuem um destinatário específico, os eventos \textit{signal} executam o modelo \textit{broadcast} para os receptores que dão sequência aos seus fluxos. 
+      \item Os eventos \textit{terminate} são utilizados para finalizar completamente a execução de um processo. 
+      \item Os eventos \textit{multiple} são utilizados para indicar diversos eventos em um único símbolo com a semântica XOR, ou seja, quando houver ocorrência de qualquer um dos eventos.
+      \item Os eventos \textit{parallel multiple} são utilizados para indicar diversos eventos em um único símbolo com a semântica AND, ou seja, somente quando houver ocorrência de todos os eventos.
+    \end{itemize}
+     
     
     \item Atividades
     
-    Objetos utilizados para representar uma unidade de trabalho a ser realizada no processo. Existem dois tipos básicos de atividades: tarefas ou subprocessos. As tarefas podem ser executadas por humanos ou por algum tipo de serviço, como um seviço web ou mesmo a execução de algum código interno no processo. Já os subprocessos são atividades utilizadas para agrupar outros objetos, encapsulando fluxos de maior complexidade.
+    Objetos utilizados para representar uma unidade de trabalho a ser realizada no processo. Existem dois tipos básicos de atividades: \underline{tarefas} ou \underline{subprocessos}. As tarefas podem ser executadas por humanos ou por algum tipo de serviço, como um seviço web ou mesmo a execução de algum código interno no processo. Já os subprocessos são atividades utilizadas para agrupar outros objetos, encapsulando fluxos de maior complexidade.
     
     \begin{figure}[H]
     \centering
@@ -64,11 +83,11 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
     \label{fig:bpmn_activities}
     \end{figure}
     
-    A mesma atividade pode ser executada uma ou mais vezes, e a figura \ref{fig:bpmn_activities} mostra as notações utilizadas para indicar multiplicidade. A seta circular nas atividades mais à esquerda, indica que estas atividades serão executadas até determinada condição ser satisfeita. Já as linhas paralelas, nas outras atividades da figura, indicam execuções múltiplas, iterando em cada item de uma coleção previamente definida no processo. As linhas verticais representam que essa iteração ocorre paralelamente, ou seja, cada uma das instâncias da atividade ocorre concomitantemente e sem ordem de execução definida. Já as linhas horizontais significam que a execução das atividades é sequencial, onde uma só será iniciada após o término da anterior.
+    A mesma atividade pode ser executada uma ou mais vezes, e a Figura \ref{fig:bpmn_activities} mostra as notações utilizadas para indicar multiplicidade. A seta circular nas atividades mais à esquerda indica que estas atividades serão executadas até determinada condição ser satisfeita. Já as linhas paralelas nas outras atividades da figura indicam execuções múltiplas, iterando em cada item de uma coleção previamente definida no processo. As linhas verticais representam que essa iteração ocorre paralelamente, ou seja, cada uma das instâncias da atividade ocorre concomitantemente e sem ordem de execução definida. Já as linhas horizontais significam que a execução das atividades é sequencial, onde uma só será iniciada após o término da anterior.
     
     \item Decisões
     
-    São objetos utilizados para controlar o fluxo de trabalho, possibilitando o direcionamento do processo para a escolha de único sentido, ou para controlar a divergência e convergência de fluxos paralelos. Essas decisões podem ser feitas com base nos dados inerentes ao fluxo do processo ou em eventos relacionados à sua execução.
+    São objetos utilizados para controlar o fluxo de trabalho, possibilitando o direcionamento do processo para a escolha de um único sentido, ou para controlar a divergência e convergência de fluxos paralelos. Essas decisões podem ser feitas com base nos dados inerentes ao fluxo do processo ou em eventos relacionados à sua execução.
     
     \begin{figure}[H]
     \centering
@@ -78,7 +97,7 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
     \end{figure}
 \end{enumerate}
 
-    A figura \ref{fig:bpmn_gateways} mostra a notação dos diferentes tipos de decisões que podem ser aplicadas ao contexto de um projeto. Elas podem ser exclusivas (apenas um fluxo é seguido, notações exibidas na primeira linha), inclusivas (um ou mais fluxos podem ser executados, notação mostrada na quarta linha), complexas (notação que prevê um comportamento específico que envolve uma lógica mais complexa), paralelas (todos os fluxos são executados de maneira independente, notação exibida na última linha) e baseadas em eventos, em vez de dados do processo, que também podem ser exclusivas, como as notações da segunda linha, ou paralelas, como as da terceira linha.
+    A Figura \ref{fig:bpmn_gateways} mostra a notação dos diferentes tipos de decisões que podem ser aplicadas ao contexto de um projeto. Elas podem ser exclusivas (apenas um fluxo é seguido, notações exibidas na primeira linha), inclusivas (um ou mais fluxos podem ser executados, notação mostrada na quarta linha), complexas (notação que prevê um comportamento específico que envolve uma lógica mais complexa, mostrada na quinta linha), paralelas (todos os fluxos são executados de maneira independente, notação exibida na última linha) e baseadas em eventos, em vez de dados do processo, as quais também podem ser exclusivas (como as notações da segunda linha) ou paralelas (como as notações da terceira linha).
 
 
 \subsubsection{Agrupadores}\label{sec:bpm-bpmn_objetos_agrupadores}
@@ -92,11 +111,11 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
     \label{fig:bpmn_swimlanes}
     \end{figure}
     
-    A figura \ref{fig:bpmn_swimlanes} mostra os dois tipos de elementos utilizados para esta finalidade. \textit{Lane} é usada para agrupar tarefas do mesmo usuário, ou grupo de usuários que possuem as mesmas responsabilidades dentro de um processo, já a \textit{pool} é utilizada para agregar as diferentes \textit{lanes} do processo. 
+    A Figura \ref{fig:bpmn_swimlanes} mostra os dois tipos de elementos utilizados para esta finalidade. \textit{Lane} é usada para agrupar tarefas do mesmo usuário, ou grupo de usuários que possuem as mesmas responsabilidades dentro de um processo, já a \textit{pool} é utilizada para agregar diferentes \textit{lanes} do processo. 
 
 \subsubsection{Artefatos}\label{sec:bpm-bpmn_objetos_artefatos}
 
-    São utilizados para acrescentar informações adicionais a modelagem do processo. 
+    São utilizados para acrescentar informações adicionais à modelagem do processo. 
 
     \begin{figure}[H]
     \centering
@@ -105,12 +124,12 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
     \label{fig:bpmn_artifacts}
     \end{figure}
     
-    A figura \ref{fig:bpmn_artifacts} exemplifica os diferentes tipos de artefato. O primeiro são as anotações, usadas para adicionar comentários e/ou informações adicionais para facilitar o entendimento do processo, não possui nenhuma influência na execução do fluxo. O segundo é o objeto de dados, que serve para definir dados inerentes a execução do processo, que podem ser usados e manipulados pelos objetos de fluxo, por exemplo, servindo como critério para os objetos de decisão apresentados na seção \ref{sec:bpm-bpmn_objetos}. E o terceiro é o grupo, um retângulo utilizado para englobar objetos de fluxo de forma a a melhorar a organização do modelo -- assim como as anotações, possui apenas caráter visual, auxiliando a compreensão do processo através de recursos gráficos.
+    A Figura \ref{fig:bpmn_artifacts} exemplifica os diferentes tipos de artefatos. O primeiro são as \underline{anotações}, usadas para adicionar comentários e/ou informações adicionais para facilitar o entendimento do processo, não possui nenhuma influência na execução do fluxo. O segundo é o \underline{objeto de dados} (data object), aonde são listados dados inerentes à execução do processo, como um arquivo de entrada, ou um XML\cite{xml} que é gerado como saída de uma etapa e utilizado em outro momento. Estes dados também podem ser variáveis, que serão usadas e manipulados pelos objetos de fluxo, por exemplo, servindo como critério para os objetos de decisão (\ref{sec:bpm-bpmn_objetos}). O terceiro tipo de artefato é o \underline{grupo}, um retângulo utilizado para englobar objetos de fluxo de forma a melhorar a organização do modelo -- assim como as anotações, possui apenas caráter visual, auxiliando a compreensão do processo através de recursos gráficos.
 
 
 \subsubsection{Conectores}\label{sec:bpm-bpmn_objetos_conectores}
 
-    São utilizados para interligar objetos de fluxo. São classificados em conectores de sequência, mensagem ou associação.
+    São utilizados para interligar objetos de fluxo. São classificados em conectores de \underline{sequência}, \underline{mensagem} ou \underline{associação}.
 
     \begin{figure}[H]
     \centering
@@ -119,14 +138,14 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
     \label{fig:bpmn_conectors}
     \end{figure}
     
-    A figura \ref{fig:bpmn_conectors} mostra a notação utilizada para os três diferentes tipos de conectores. O primeiro é o conector de sequência, que liga os objetos de fluxo, determinando a ordem de execução de cada um deles. O segundo é o conector de mensagem, que indica quando há troca de mensagens entre diferentes atividades, como uma chamada a um serviço \textit{web}, por exemplo. E, por último, a associação simples, que serve para relacionar logicamente diferentes elementos do modelo, mas não altera a execução do fluxo, por exemplo, relacionando um comentário a uma tarefa. 
+    A Figura \ref{fig:bpmn_conectors} mostra a notação utilizada para os três diferentes tipos de conectores. O primeiro é o conector de sequência, que liga os objetos de fluxo, determinando a ordem de execução de cada um deles. O segundo é o conector de mensagem, que indica quando há troca de mensagens entre diferentes atividades, como uma chamada a um serviço \textit{web}, por exemplo. E, por último, a associação simples, que serve para relacionar logicamente diferentes elementos do modelo, mas não altera a execução do fluxo, por exemplo, relacionando um comentário a uma tarefa. 
 
 
 \section{BPMS}\label{sec:automatizacao-processos-bpms}
 
 BPMS\cite{bpms} é o acrônimo em inglês para \textit{Business Process Management Suites/System}, ou em português \textit{Sistemas de Gerenciamento de Processos de Negócio}. Os softwares BPMS são sistemas especialistas na modelagem, execução, controle e monitoramento de processos de negócio. 
 
-A notação BPMN é utilizada para a modelagem dos processos, e interpretada pelo motor do BPMS que a utiliza para orquestração do fluxo de trabalho. Devido a sua abordagem focada em processos modelados por uma notação padronizada, o entendimento à cerca de um processo de negócio entre analistas de negócio e desenvolvedores acaba sendo facilitado. 
+A notação BPMN é utilizada para a modelagem dos processos, e interpretada pelo motor do BPMS que a utiliza para a orquestração do fluxo de trabalho. Devido a sua abordagem focada em processos modelados por uma notação padronizada, o entendimento a    cerca de um processo de negócio entre analistas de negócio e desenvolvedores acaba sendo facilitado. 
 
 Dentre algumas das vantagens obtidas pelas organizações através da adoção de sistemas BPMS, podemos citar melhorias na capacidade de gestão e monitoramento de processos, melhorias na visibilidade e entendimento de processos, e maior rapidez na introdução de mudanças e ajustes nos processos de negócio.
 
@@ -134,8 +153,8 @@ Entre alguns fatores que diferenciam e caracterizam os sistemas BPMS, podemos ci
 
 Ao inspecionarmos o ecossistema de aplicações BPMS, podemos encontrar diversas opções variando desde soluções caríssimas até soluções gratuitas e de código-fonte aberto. Como exemplo de soluções pagas, podemos citar o SAP NetWeaver BPM\cite{bpm_sap} e Oracle BPM\cite{bpm_oracle}. Como exemplo de soluções com versões gratuitas ou de código-fonte aberto, podemos citar o Activiti BPM\cite{bpm_activiti}, Bonita BPM\cite{bpm_bonita} e Intalio BPM\cite{bpm_intalio}.
 
-A maioria das aplicações BPMS mais robustas oferecem algum tipo de portal com o usuário, onde a interações humanas com os processos ocorrem. Neste portal, o usuário pode interagir com os processos, atuar em tarefas a ele designadas, iniciar ou cancelar processos, entre outras possibilidades de interação.
+Da mesma forma que o portal, a maioria das ferramentas BPMS também oferece algum tipo de API, o que possibilita a utilização de novas interfaces com o usuário e integração com outros sistemas. A disponibilidade de uma API permite a extensão do BPMS para outras plataformas não tradicionais em ambientes corporativos, como os dispositivos móveis e sensores, ou mesmo a customização de um novo portal que atenda as necessidades da corporação.
 
-Da mesma forma que o portal, a maioria das ferramentas BPMS também oferece algum tipo de API. Isso abre a possibilidade de utilização de novas interfaces com o usuário e integração com outros sistemas. Isso possibilita a extensão do BPMS para outras plataformas não tradicionais em ambientes corporativos, como os dispositivos móveis ou até mesmo sensores, ou mesmo a customização de um novo portal que atenda as necessidades da corporação.
+A maioria das aplicações BPMS mais robustas oferecem algum tipo de portal com o usuário, onde as interações humanas com os processos ocorrem. Neste portal, o usuário pode interagir com os processos, atuar em tarefas a ele designadas, iniciar ou cancelar processos, entre outras possibilidades de interação. No entanto, neste ponto se encontra a principal fraqueza nestes tipos de sistema.
 
-
+O foco destes sistemas é fazer com que processos complexos fluam perfeitamente. Com isso, as interfaces disponibilizadas por aqueles são bastante simples. Elas tanto não são amigáveis ao usuário, como também não possuem um controle de acesso um pouco minimamente elaborado, para permitir diferentes características de acesso aos processos e tarefas, como por exemplo um gerente enxergar todas as tarefas atribuídas aos membros de sua equipe.

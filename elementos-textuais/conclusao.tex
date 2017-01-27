@@ -1,29 +1,21 @@
-\chapter{Avaliação}\label{chp:conclusao}
+\chapter{Conclusão}\label{chp:conclusao}
+
+\section{Introdução}\label{sec:conclusao-introducao}
+Neste capítulo apresentamos algumas considerações finais a respeito deste projeto, tais como reflexões sobre a motivação, busca da solução e conclusão sobre o seu desenvolvimento. Além disso, sugerimos algumas novas funcionalidades e melhorias como trabalhos futuros, para que este projeto continue sendo desenvolvido e cada vez mais se torne uma alternativa viável na automatização e gestão de processos de negócio.
+
+\section{Considerações}\label{sec:conclusao-introducao}
 
 O combustível principal deste trabalho, fortemente compartilhado por todos os seus integrantes, foi a possibilidade de unir o interesse acadêmico e a incrível experiência vivenciada durante todos os anos de estudos na UFRJ com o objetivo de gerar valor para o mercado corporativo através da Visagio\cite{visagio}, empresa na qual trabalhamos há mais de três anos e formada por ex-alunos desta instituição.
 
-Em um cliente da Visagio, onde o Redmine já era utilizado para a gestão de diversos processos na área de Suprimentos, observou-se a necessidade da implantação de fluxos de aprovação mais complexos do que o Redmine poderia oferecer por padrão. Nesse cenário, observamos uma excelente oportunidade para avaliar na prática o funcionamento da solução descrita ao longo deste trabalho.
+Tendo iniciado com a necessidade de automatizar e padronizar processos simples e com bastante interação humana, encontramos no Redmine uma ótima solução. Descobrimos que o Gerenciador de Projetos podia também ser utilizado como Gerenciador de Processos. Utilizar este sistema faz sentido pela excelente estrutura de gerenciamento de tarefas, acompanhamento do histórico, facilidade para criação de fluxos de trabalho, campos personalizados, e ótimo controle de permissões.
 
-A Figura \ref{fig:process_cartao_compras} demonstra o processo para solicitação de criação de cartão de crédito corporativo. Este processo foi configurado para ser conduzido no Activiti BPM e Redmine através do plugin do Redmine \textit{BPM Integration} desenvolvido neste trabalho. O processo é disparado mediante a abertura de um chamado no Redmine, onde são preenchidos dados pessoais do solicitante, endereço para entrega do cartão e diretor aprovador. Após a criação do processo, o Activiti BPM imediatamente cria a próxima tarefa: \textit{Workflow Diretor}. Através do mecanismo de sincronização, uma sub-tarefa é criada no Redmine, representando a aprovação do diretor. Esta tarefa tem o responsável definido pelo preenchimento do aprovador na tarefa anterior, sendo encaminhado através do fluxo no Activiti BPM ao Redmine definindo o responsável pela tarefa. Como é possível observar no diagrama, o processo segue por mais dois níveis de aprovação, até finalmente o cartão estar aprovado para emissão e entrega ao solicitante. Caso algum dos aprovadores reprove a solicitação do cartão, o chamado é encerrado e assume o status Reprovado.
+Contudo, se quisermos guiar processos mais complexos, com fluxos paralelos, atribuições, ou decisões de caminhos automáticas, o Redmine por si só não nos atenderia. Ele não foi desenvolvido originalmente com este objetivo, e não valeria a pena tentar desenvolver plugins para possibilitar a condução de processos complexos no Redmine, pois as funcionalidades que são necessárias para isto, já foram todas implementadas em sistemas chamados BPMS.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=1\textwidth]{imagens/processo_cartao_compras.png}
-\caption{Modelo de processo de Criação de cartão corporativo}
-\label{fig:process_cartao_compras}
-\end{figure}
+Os BPMS foram desenvolvidos exatamente com o objetivo de modelar fluxos complexos, e nos atenderiam muito bem em termos de execução do processo. No entanto, como uma das características dos processos que queremos poder automatizar é a necessidade de bastante interação humana, todas as funcionalidades que facilitam esta interação do Redmine citadas acima, nos fariam falta, pois este não é o foco dos BPMS.
 
+A proposta final deste trabalho portanto foi o desenvolvimento de um plugin para o Redmine, que chamamos de \textit{BPM Integration}, para integrá-lo com um BPMS. Como descrevemos no Capítulo \ref{chp:integracao_redmine_activiti}, a abordagem inicial foi utilizar um ESB\cite{esb} como uma camada de comunicação entre o Redmine e os BPMS, e desenvolver uma plataforma genérica à qual pudesse ser plugado qualquer BPMS. Devido a algumas dificuldades nesta estratégica, decidimos estabelecer a comunicação com apenas um BPMS e após avaliarmos as possibilidades disponíveis, escolhemos o Activiti BPM\cite{bpm_activiti}.
 
-No caso do processo descrito, a implementação no Activiti BPM permitiu que as tarefas de aprovação fossem atribuídas automaticamente, e que a reprovação de uma etapa resultasse no encerramento do processo com o status Reprovado. Esse comportamento não seria possível de maneira simples no Redmine, diferentemente do Activiti BPM, onde a modelagem permite esse tipo de fluxo de trabalho. O processo descrito anteriormente e outros processos implantados de diferentes complexidades tiveram razão para serem implementados utilizando o plugin desenvolvido, aproveitando-se das facilidades de modelagem e fluxos proporcionados pelo BPM.
-
-No gráfico da Figura \ref{fig:grafico_processo} é possível verificar o total de criação e conclusão de três diferentes grupos de processos. Ao observarmos que todos os processos tem um alto percentual de resolução, podemos concluir que a integração entre o Redmine e o Activiti BPM funcionou conforme o esperado, e que os processos fluíram normalmente com a interação dos atores do processo através do Redmine. Além disso, não foram observados reclamações importantes referentes ao funcionamento do fluxo de trabalho. No total, foram iniciados 4.275 processos desde Março de 2016, o que representa uma média de 21 processos iniciados por dia até Setembro de 2016.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=1\textwidth]{imagens/grafico_processo.png}
-\caption{Processos utilizando o plugin}
-\label{fig:grafico_processo}
-\end{figure}
+O plugin \textit{BPM Integration} foi desenvolvido em Ruby on Rails, a linguagem na qual o Redmine foi feito. Ademais, a comunicação entre o Redmine e o Activiti BPM foi feita através do consumo da API REST disponibilizada pelo último.
 
 
 \section{Melhorias Propostas}\label{sec:conclusao-melhorias}
@@ -34,8 +26,29 @@ A seguir são apresentadas algumas propostas de melhorias para o seguimento dest
 
 \subsection{Tarefas Contínuas}
 
-Durante a implantação, um \textit{feedback} foi recebido pelos usuários do sistema. O plugin introduziu um comportamento um pouco diferente na continuidade do processo do que era de costume no Redmine. Como explicado acima, a representação de uma tarefa humana do Activiti no Redmine é uma sub-tarefa do chamado original que representa o processo. Uma das principais razões desta abordagem foi a necessidade de tratar os casos de tarefas humanas que rodam em paralelo, de modo que cada ator poderia executar sua tarefa isoladamente numa sub-tarefa. 
-Esta modificação, no entanto, tirou um pouco a continuidade de um processo em que várias etapas são executadas sequencialmente por um mesmo ator, pois ele não consegue fazer isto apenas avançando as etapas numa mesma tela, mas abrindo cada vez a próxima sub-tarefa que é criada para a próxima etapa. Neste cenário, existe possibilidade de melhorias para melhorar a fluidez quando as tarefas sequenciais são executadas por um mesmo ator.
+Durante a implantação, um \textit{feedback} foi recebido pelos usuários do sistema. O plugin introduziu um comportamento um pouco diferente na continuidade do processo do que era de costume no Redmine. Como explicado na Seção \ref{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task}, a representação de uma tarefa humana do Activiti no Redmine é uma sub-tarefa do chamado original que representa o processo. Uma das principais razões desta abordagem foi a necessidade de contemplar processos que existem tarefas humanas que devem ser realizadas em paralelo, de modo que cada ator pudesse executar sua tarefa isoladamente numa sub-tarefa. 
+
+Esta modificação, no entanto, tirou um pouco a continuidade de um processo em que várias etapas são executadas sequencialmente por um mesmo ator. Na condução de um processo no Redmine sem o plugin \textit{BPM Integration} os atores sempre interagem com o processo através da tarefa que representa o mesmo no Redmine. 
+
+Já na modelagem proposta com o plugin \textit{BPM Integration} o usuário interage com o processo através da sub-tarefa atribuída para ele e altera a situação desta, representando a conclusão daquela etapa. Ao fazer isto o processo segue para a próxima etapa no Activiti BPM e cria a próxima atividade (\ref{sec:bpm-bpmn_objetos_fluxo}) e o plugin \textit{BPM Integration} em seguida cria uma nova sub-tarefa, para permitir a interação do ator com o processo, através do Redmine. 
+
+Quando o usuário conclui uma sub-tarefa, e ele é o responsável pela próxima etapa, ele não visualiza imediatamente na tela a próxima sub-tarefa criada, permitindo que avance as etapas numa mesma tela. Nestes casos é necessário acessar a tarefa pai da sub-tarefa que acabou de ser concluída (a que representa o processo), e à partir daí, acessar a próxima sub-tarefa. Neste cenário, existe possibilidade de melhorias para facilitar a execução das tarefas para o usuário, permitindo que o processo flua melhor quando as tarefas sequenciais são executadas por um mesmo ator.
+
+As Figuras \ref{fig:acessar_subtarefa} e \ref{fig:acessar_tarefa_pai} mostram como é o acesso às tarefas mencionado acima, exemplificado com o processo de criação de cartões corporativos ilustrado na Figura \ref{fig:process_cartao_compras}. Após concluir a tarefa, o usuário deve clicar no link em amarelo na parte superior da tela exibida na Figura \ref{fig:acessar_tarefa_pai}. Ao fazer isto é redirecionado para a tela da tarefa que representa o processo, exibida na Figura \ref{fig:acessar_subtarefa}. Abaixo do título \textit{Sub-chamados} estão as sub-tarefas. Como é possível observar, a primeira sub-tarefa é a que acabou de ser concluída, com a situação \textit{Aprovado}, e a segunda é a próxima etapa a ser realizada, em cujo link o ator deve clicar para acessá-la.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{imagens/acessar_tarefa_pai.png}
+\caption{Sub-tarefa, representando uma das etapas do processo de criação de cartões corporativos}
+\label{fig:acessar_tarefa_pai}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{imagens/acessar_subtarefa.png}
+\caption{Tarefa representando o processo de criação de cartões corporativos}
+\label{fig:acessar_subtarefa}
+\end{figure}
 
 \subsection{BPMN Integrado}
 
@@ -52,14 +65,7 @@ Já existem iniciativas similares neste sentido, como o Activiti Modeler\cite{ac
 
 \subsection{BRM Integrado}
 
-Uma característica bastante comum em sistemas BPMS é a presença de um BRM (\textit{Business Rules Management}) para gestão de regras de negócio nos processos. O Activiti BPM suporta a integração com o Drools, uma aplicação \textit{web} desenvolvida em Java especialista em BRM. A Figura \ref{fig:drools} apresenta uma tabela de decisão no Drools que pode ser configurada pelo usuário para definir uma regra de negócio baseada em intervalo de valores estabelecendo, por exemplo, a alçada de aprovação em um processo de pagamento.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=1\textwidth]{imagens/drools_decision_table.png}
-\caption{Tabela de decisão no Drools}
-\label{fig:drools}
-\end{figure}
+Uma característica bastante comum em sistemas BPMS é a presença de um BRM (\textit{Business Rules Management}) para gestão de regras de negócio nos processos. O Activiti BPM suporta a integração com o Drools, uma aplicação \textit{web} desenvolvida em Java especialista em BRM. O Drools permite a criação de uma tabela de decisão que pode ser configurada pelo usuário para definir uma regra de negócio baseada em intervalo de valores estabelecendo, por exemplo, as alçadas de aprovação em um processo de pagamento.
 
 Uma proposta de evolução no contexto da integração do BPMS com o Redmine seria o desenvolvimento de um plugin BRM que permita a gestão de regras de negócio para processos BPM diretamente no Redmine.
 

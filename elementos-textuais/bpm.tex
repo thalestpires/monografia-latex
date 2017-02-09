@@ -5,7 +5,7 @@
 Neste capítulo introduziremos o conceito de Gerenciamento de Processos de Negócios, e a notação utilizada para modelar processo de forma padronizada. Falaremos, ademais, dos sistemas que permitem a gestão e condução de processos de forma automatizada. Destacaremos as vantagens e desvantagens deste tipo de sistema, e como esta avaliação contribuiu para a construção de uma solução para a gestão de processos complexos com bastante interação humana.
 
 \section{BPM}\label{sec:bpm-bpm}
-BPM\cite{bpm} é o acrônimo em inglês para \textit{Business Process Management}, ou em português \textit{Gerenciamento de Processos de Negócio}. Seu principal objetivo é oferecer uma abordagem sistemática para a execução, adaptação e melhoria de processos de negócio em um ambiente de constantes mudanças. 
+BPM\cite{bpm} é o acrônimo em inglês para \textit{Business Process Management}, ou em português \textit{Gerenciamento de Processos de Negócio}. De acordo com van der Aalst\cite{bpm_van_der_aalst}, o BPM é definido como "suporte para processos de negócio, utilizando métodos, técnicas e softwares para projetar, legitimar, controlar e analisar processos operacionais envolvendo humanos, organizações, aplicações, documentos e outras fontes de informação”.
 
 Um processo de negócio é definido por um conjunto de atividades coordenadas, relacionadas entre si, que envolvem diferentes pessoas, procedimentos, áreas e tecnologias com o objetivo de gerar valor para a empresa, seja em forma de produtos ou serviços, internos ou externos.
 
@@ -37,7 +37,7 @@ A Figura \ref{fig:exemplo_bpmn} mostra um exemplo de processo modelado na ferram
 
 A notação define quatro grupos distintos de objetos para permitir a diagramação de um fluxo de negócio. Os objetos são classificados em objetos de fluxo, artefatos, agrupadores e conectores. São utilizadas figuras geométricas, como retângulos e círculos, além de linhas pontilhadas e tracejadas, entre outros elementos gráficos para representar cada um dos objetos que constituem a notação.
 
-\subsubsection{Objetos de Fluxo}\label{sec:bpm-bpmn_objetos_fluxo}
+\subsubsection{Objetos de fluxo}\label{sec:bpm-bpmn_objetos_fluxo}
 
 Os objetos de fluxo são os principais elementos do BPMN pois constituem os elementos chave na execução do fluxo de trabalho. Eles são dividos em 3 principais grupos que serão detalhados a seguir: eventos, atividades e decisões.
 
@@ -61,7 +61,7 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
       \item  Os eventos \textit{message} são utilizados para indicar um ponto do processo em que ocorre comunicação com um agente externo ou outro processo.
       \item Os eventos \textit{timer} são utilizados para indicar que o processo deverá parar naquele ponto e aguardar até que a condição de tempo parametrizada se torne verdadeira, como por exemplo, uma data específica ou um período de tempo.
       \item Os eventos \textit{error} são utilizados para indicar que ocorreu um erro durante o fluxo de execução do processo. 
-      \item Os eventos \textit{escalation} são utilizados para indicar que um outro participante do processo deve executar determinada ação que o processo continue seu fluxo.
+      \item Os eventos \textit{escalation} são utilizados para indicar que um outro participante do processo deve executar determinada ação para que o processo continue seu fluxo.
       \item Os eventos \textit{cancel} indicam que o processo e suas atividades devem ser canceladas.
        \item Os eventos \textit{compensation} são utilizados para desfazer ações que já haviam sido completadas e não são mais desejadas e necessitam ser revertidas.
        \item Os eventos \textit{conditional} são utilizados para pausar o processo, até que uma determinada regra de negócio se torne verdadeira.
@@ -125,7 +125,7 @@ Os objetos de fluxo são os principais elementos do BPMN pois constituem os elem
     \label{fig:bpmn_artifacts}
     \end{figure}
     
-    A Figura \ref{fig:bpmn_artifacts} exemplifica os diferentes tipos de artefatos. O primeiro são as \underline{anotações}, usadas para adicionar comentários e/ou informações adicionais para facilitar o entendimento do processo, não possui nenhuma influência na execução do fluxo. O segundo é o \underline{objeto de dados} (data object), aonde são listados dados inerentes à execução do processo, como um arquivo de entrada, ou um XML\cite{xml} que é gerado como saída de uma etapa e utilizado em outro momento. Estes dados também podem ser variáveis, que serão usadas e manipulados pelos objetos de fluxo, por exemplo, servindo como critério para os objetos de decisão (\ref{sec:bpm-bpmn_objetos}). O terceiro tipo de artefato é o \underline{grupo}, um retângulo utilizado para englobar objetos de fluxo de forma a melhorar a organização do modelo -- assim como as anotações, possui apenas caráter visual, auxiliando a compreensão do processo através de recursos gráficos.
+    A Figura \ref{fig:bpmn_artifacts} exemplifica os diferentes tipos de artefatos. O primeiro são as \underline{anotações}, usadas para adicionar comentários e/ou informações adicionais para facilitar o entendimento do processo, não possui nenhuma influência na execução do fluxo. O segundo é o \underline{objeto de dados} (data object), usado para listar dados inerentes à execução do processo, como um arquivo de entrada, ou um XML\cite{xml} que é gerado como saída de uma etapa e utilizado em outro momento. Estes dados também podem ser variáveis, que serão usadas e manipulados pelos objetos de fluxo, por exemplo, servindo como critério para os objetos de decisão (\ref{sec:bpm-bpmn_objetos}). O terceiro tipo de artefato é o \underline{grupo}, um retângulo utilizado para englobar objetos de fluxo de forma a melhorar a organização do modelo -- assim como as anotações, possui apenas caráter visual, auxiliando a compreensão do processo através de recursos gráficos.
 
 
 \subsubsection{Conectores}\label{sec:bpm-bpmn_objetos_conectores}
@@ -158,4 +158,4 @@ A maioria das aplicações BPMS mais robustas oferecem algum tipo de portal para
 
 Apesar das vantagens e diversos recursos oferecidos por suites BPM, os altos custos deste tipo de solução, além da complexidade para sua implantação e customização de interfaces para o atendimento de diferentes processos, acabam por inviabilizar sua aplicação em projetos corporativos. Neste sentido, buscamos soluções intermediárias, que ofereçam recursos simples e intuitivos para a criação de processos menos complexos, mas que também sejam capazes de escalar para processos mais complexos quando necessário. Além desses aspectos, seria interessante que esta solução não necessitasse da compra de licenças para sua utilização, uma vez que a necessidade de \textit{hardware} e equipe especializada para mapeamento e automatização de processos já incluem custos consideráveis no orçamento de projetos deste tipo.
 
-No próximo capítulo, apresentaremos uma solução desenvolvida neste projeto para atender os requisitos apresentados anteriormente. Um sistema para automatização e gestão de processos, fácil e intuitivo para o usuário, com uma pequena curva de tempo na implantação de processos simples, mas igualmente capaz de suportar processos complexos quando necessário, sem a necessidade de licenças por utilizar \textit{softwares} gratuitos, com uma interface amigável, geração de formulários automáticos, além de uma gestão no controle de acesso à tarefas e processos.
+No próximo capítulo, apresentaremos uma solução desenvolvida neste projeto para atender os requisitos apresentados anteriormente. Um sistema para automatização e gestão de processos, fácil e intuitivo para o usuário, com uma pequena curva de tempo na implantação de processos simples, mas igualmente capaz de suportar processos complexos quando necessário, sem a necessidade de licenças por utilizar \textit{softwares} gratuitos, com uma interface amigável, geração de formulários automáticos, além de uma gestão no controle de acesso a tarefas e processos.

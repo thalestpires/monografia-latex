@@ -5,7 +5,6 @@
 A condução de processo simples no Redmine foi um sucesso. No entanto, encontramos dificuldades para automatizar processos mais complexos utilizando este sistema. Isto seria possível apenas com o desenvolvimento de plugins ou mudanças no código-fonte principal, ambas as opções custosas, arriscadas e imanuteníveis a longo prazo. Além disso, as funcionalidades que teríamos que desenvolver no Redmine para possibilitar a condução de processos mais complexos já existem nos BPMS, criados exatamente para este tipo de demanda. 
 
 Utilizar apenas um BPMS contudo não se mostrou a melhor opção, pois perderíamos o excelente controle de permissões do Redmine, bem como a geração automática de formulários e a facilidade de criar um processo simples. 
-
 Neste capítulo será apresentada a solução para os problemas citados acima: a integração entre o Redmine e o Activiti BPM, o BPMS escolhido para esta implementação.
 
 \section{Motivos para integração}\label{sec:cenario-integracao}
@@ -22,7 +21,7 @@ O Redmine também possui um excelente suporte à geração automática de formul
 
 Neste sentido, torna-se interessante propor uma solução que aproveite todas as vantagens de portal e implantação de processos de negócio mais simples do Redmine, mas que também ofereça todo o poder e flexibilidade de modelagem de processos mais complexos oferecidos por ferramentas BPMS. Surge assim a proposta de uma solução integrada para a automatização de processos de negócio, através da junção do Redmine com uma ferramenta BPMS.
 
-\section{Integração Genérica}\label{sec:cenario-integracao-genérica}
+\section{Integração genérica}\label{sec:cenario-integracao-genérica}
 
  Pensando na possibilidade de utilizar qualquer plataforma BPMS integrada ao Redmine, decidimos avaliar a utilização de ferramentas ESB\cite{esb} de forma a facilitar a construção de uma interface única de comunicação com o Redmine. Conforme definido em publicação do O'Reilly\cite{oreilly_esb}, ESB é uma plataforma de integração baseada em padrões que combina mensagens, serviços web, transformação de dados e roteamento inteligente para conectar de forma confiável e coordenar a interação de um número significativo de aplicações e serviços. Assim, bastaria o trabalho de integrar o BPMS escolhido com este barramento, e assim o Redmine estaria capacitado a orquestrar fluxos de trabalho mais complexos utilizando qualquer BPMS de mercado. A Figura \ref{fig:arquitetura_integracao_generica_redmine_bpm}  apresenta o modelo de arquitetura proposto para a integração genérica do Redmine com BPMS.
 
@@ -41,7 +40,7 @@ O primeiro serviço escolhido para modelagem no barramento foi o responsável po
 
 Entretanto, este piloto foi suficiente para identificarmos logo no início que haveria um grande esforço para a construção deste barramento. Para implementar o serviço citado acima, foi necessário estudar a fundo os serviços implementados pela interface REST de cada BPMS e percebemos que haviam muitas diferenças entre eles. Devido a estas diferenças percebemos que não seria possível construir uma comunicação genérica entre o ESB e os BPMS, e exigiria uma alta complexidade. Percebemos fundamentalmente que esta solução exigiria um altíssimo esforço de desenvolvimento e modelagem, e que nos afastaríamos do objetivo central deste trabalho, que é prover um motor de processos mais complexo para o Redmine. Além disso, se tivéssemos que desenvolver uma estrutura nova de comunicação para cada BPMS, a camada de interface do ESB deixava de fazer sentido.
 
-Em razão disso optamos por solução de menor complexidade, mas que provesse o ganho almejado com a integração do BPMS ao Redmine.
+Em razão disso optamos por uma solução de menor complexidade, mas que provesse o ganho almejado com a integração do BPMS ao Redmine.
 
 \section{Integração Redmine e Activiti BPM}\label{sec:activiti-bpm}
 
@@ -126,7 +125,7 @@ Após a instalação do artefato e inicialização do Tomcat, o portal pode ser 
 \label{fig:activiti_login}
 \end{figure}
 
-\subsubsection{Modelagem do Processo}\label{sec:automatizacao_processos-modelagem_processo}
+\subsubsection{Modelagem do processo}\label{sec:automatizacao_processos-modelagem_processo}
 
 Para a modelagem do processo, é necessária a instalação do plugin \textit{Activiti Designer} na ferramenta de desenvolvimento \textit{Eclipse}\cite{eclipse}. Mais detalhes sobre como proceder com a instalação do plugin estão disponíveis no guia de instalação disponível no site\cite{activiti_designer} do Activiti BPM.
 
@@ -134,7 +133,8 @@ Ao criar um novo diagrama através da opção de criar um novo \textit{Activiti 
 
 Para a modelagem do processo na paleta visual, é necessário arrastar os componentes visuais dispostos na aba lateral a fim de obter a modelagem desejada do processo na notação BPMN.
 
-Ao final da modelagem, o arquivo \textit{.bpmn} é gerado para ser utilizado na instalação do processo no motor de processos. A Figura \ref{fig:processo_precificacao} representa o processo modelado na ferramenta e já descrito na notação BPMN 2.0. O código gerado em XML pode ser consultado no apêndice \ref{code:process_bpmn}.
+Ao final da modelagem, o arquivo \textit{.bpmn} é gerado para ser utilizado na instalação do processo no motor de processos. A Figura \ref{fig:processo_precificacao} representa a modelagem 
+do processo ilustrado na introdução deste trabalho utilizando o \textit{Activiti Designer} e já descrito na notação BPMN 2.0. O código gerado em XML pode ser consultado no apêndice \ref{code:process_bpmn}.
 
 \begin{figure}[H]
 \centering
@@ -182,7 +182,7 @@ No restante desta seção apresentamos os detalhes da integração proposta: o t
 \subsubsection{Definição de processo}\label{sec:integracao_redmine_activiti_sincronizacao-deploy_processo}
 
 Para o Redmine assumir a função de interface principal do Activiti BPM foi desenvolvida uma funcionalidade do Activiti Explorer que permite ao usuário fazer a instalação de um processo através dele, uma ação que envia o arquivo da modelagem BPMN e disponibiliza o processo para ser iniciado. Esta funcionalidade dispara um serviço que acessa a API REST do Activiti BPM, executando uma requisição POST que efetivamente realiza a instalação, adicionando a modelagem do processo em questão à lista de definições de processos ativos que podem ser iniciados. 
-Após executada requisiçaõ POST, é iniciada uma rotina que busca a definição do processo recém criado. As informações do processo que são recuperadas consistem das tarefas humanas definidas, campos de formulário, variáveis de processo e outros detalhes.
+Após executada a requisição POST, é iniciada uma rotina que busca a definição do processo recém criado. As informações do processo que são recuperadas consistem das tarefas humanas definidas, campos de formulário, variáveis de processo e outros detalhes.
 A Figura \ref{fig:sync_deploy_process} ilustra a sequência de ações descritas acima.
 
 \begin{figure}[H]
@@ -192,7 +192,7 @@ A Figura \ref{fig:sync_deploy_process} ilustra a sequência de ações descritas
 \label{fig:sync_deploy_process}
 \end{figure}
 
-Na Figura \ref{fig:process_list} é possível ver a tela da lista de definições de processo. Cada linha dessa representa um tipo de processo que pode ser iniciado no Activiti BPM, através da criação de uma tarefa no Redmine, do tipo de tarefa configurado para este processo.
+Na Figura \ref{fig:process_list} é possível observar a lista de definições de processo apresentada no Redmine. Cada linha desta tabela representa um processo diferente que pode ser iniciado no Activiti BPM, resultando na criação de uma tarefa no Redmine associada ao respectivo tipo de tarefa configurado para o processo.
 
 \begin{figure}[H]
 \centering
@@ -222,10 +222,10 @@ A Figura \ref{fig:new_issue} mostra a tela de criação de tarefas no Redmine re
 \label{fig:new_issue}
 \end{figure}
 
-Os valores preenchidos para os campos padrão do Redmine são gravados no processo iniciado no Activiti BPM, bem como os campos personalizados que são configurados. Foi desenvolvida uma funcionalidade que permite ao usuário mapear cada campo personalizado para um campo presente no modelo do processo. A Figura \ref{fig:plugin_process_settings_form_fields} mostra a tela onde esta configuração é feita. Nesta mesma tela são configurados \underline{variáveis do processo},  \underline{estados de conclusão do processo} e \underline{mensagens de conclusão} e \underline{estados iniciais das tarefas do processo} no Redmine. 
+Os valores preenchidos para os campos padrão do Redmine são gravados no processo iniciado no Activiti BPM, bem como os campos personalizados que são configurados. Foi desenvolvida uma funcionalidade que permite ao usuário mapear cada campo personalizado para um campo presente no modelo do processo. A Figura \ref{fig:plugin_process_settings_variables} mostra a tela onde esta configuração é feita. Nesta mesma tela são configurados \underline{variáveis do processo},  \underline{estados de conclusão do processo} e \underline{mensagens de conclusão} e \underline{estados iniciais das tarefas do processo} no Redmine. 
 
 Os campos citados acima são declaradas no XML de modelagem do processo na notação BPMN. O plugin BPM Integration lê estas variáveis através da API REST do Activiti BPM e monta esta tela de configuração.
-As variáveis de processo são dados constantes utilizados ao longo do processo que são inicializadas com o valor preenchido nesta tela. O tipo de valor a ser preenchido para cada váriável depende de sua declaração, podendo ser uma situação (\ref{subsection:redmine-estrutura_basica-status}), um usuário, um grupo ou um campo personalizado (\ref{subsection:redmine-estrutura_basica-custom_fields}) cadastrado no Redmine ou um texto livre. Não configuração dos estados de conclusão o usuário deve preencher a situação correspondende a cada evento (\ref{sec:bpm-bpmn_objetos_fluxo}) de conclusão previsto no processo. Sempre que um processo é finalizado no Activiti BPM, o Redmine identifica e transiciona a situação para a situação configurada nesta tela. Também é possível configurar uma mensagem de conclusão padrão, que será preenchida como nota na tarefa do Redmine junto à mudança de situação. Em "Status inicial das tarefas do processo" o usuário configura a situação inicial para cada sub-tarefa que é criada durante o processo. Na seção \ref{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task} explicaremos como as sub-tarefas são usadas para representar etapas do processo.
+As variáveis de processo são dados constantes utilizados ao longo do processo que são inicializadas com o valor preenchido nesta tela. O tipo de valor a ser preenchido para cada váriável depende de sua declaração, podendo ser uma situação (\ref{subsection:redmine-estrutura_basica-status}), um usuário, um grupo ou um campo personalizado (\ref{subsection:redmine-estrutura_basica-custom_fields}) cadastrado no Redmine ou um texto livre. Na configuração dos estados de conclusão o usuário deve preencher a situação correspondende a cada evento (\ref{sec:bpm-bpmn_objetos_fluxo}) de conclusão previsto no processo. Sempre que um processo é finalizado no Activiti BPM, o Redmine identifica e transiciona a situação para a situação configurada nesta tela. Também é possível configurar uma mensagem de conclusão padrão, que será preenchida como nota na tarefa do Redmine junto à mudança de situação. Em "Status inicial das tarefas do processo" o usuário configura a situação inicial para cada sub-tarefa que é criada durante o processo. Na seção \ref{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task} explicaremos como as sub-tarefas são usadas para representar etapas do processo.
 
 \begin{figure}[H]
 \centering
@@ -243,7 +243,7 @@ As variáveis de processo são dados constantes utilizados ao longo do processo 
 
 \subsubsection{Tarefas humanas}\label{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task}
 
-Chamaremos as tarefas que são realizadas por humanos, citadas na seção \ref{sec:bpm-bpmn_objetos_fluxo}, \underline{tarefas humanas}. Quando uma atividade este tipo está presente na modelagem de um processo, significa que a etapa em questão deve ser realizada por uma pessoa. A interação do responsável pela tarefa com o processo é um dos pontos fortes do Redmine. Utilizando o plugin BPM Integration, as tarefas humanas do Activiti BPM são representadas no Redmine por sub-tarefas das tarefas que representam processos. Uma sub-tarefa nada mais é que uma hierarquia de tarefas, como mencionado na seção \ref{subsection:redmine-estrutura_basica-tarefa}.
+Chamaremos as tarefas que são realizadas por humanos, citadas na seção \ref{sec:bpm-bpmn_objetos_fluxo}, \underline{tarefas humanas}. Quando uma atividade deste tipo está presente na modelagem de um processo, significa que a etapa em questão deve ser realizada por uma pessoa. A interação do responsável pela tarefa com o processo é um dos pontos fortes do Redmine. Utilizando o plugin BPM Integration, as tarefas humanas do Activiti BPM são representadas no Redmine por sub-tarefas das tarefas que representam processos. Uma sub-tarefa nada mais é que uma hierarquia de tarefas, como mencionado na seção \ref{subsection:redmine-estrutura_basica-tarefa}.
 Quando uma tarefa humana é criada no decorrer do processo, o Redmine precisa refletir isto, de modo que esta tarefa possa ser executada pelo ator correto e o processo siga seu curso. O espelhamento desta tarefa no Redmine é totalmente automatizado através de uma rotina do plugin BPM Integration que é executada periodicamente e verifica se existem tarefas humanas no Activiti BPM que não foram espelhadas no Redmine, e cria uma nova sub-tarefa. Os valores dos \underline{campos do processo} de uma tarefa são populados nos campos padrão e campos personalizados conforme configurados na tela exibida na Figura \ref{fig:plugin_process_settings_form_fields}. Esta rotina também é executada quando um novo processo é iniciado ou uma tarefa finalizada.
 
 \begin{figure}[H]

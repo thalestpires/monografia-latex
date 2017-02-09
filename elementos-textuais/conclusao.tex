@@ -1,30 +1,33 @@
 \chapter{Conclusão}\label{chp:conclusao}
 
 \section{Introdução}\label{sec:conclusao-introducao}
+
+A automação de processos de negócio vem tornando-se cada vez mais fundamental nas organizações. Conforme citado por Mohapatra\cite{bpa_mohapatra}, “através da automação de processos, podemos desenvolver processos repetíveis, executáveis e gerenciáveis. Dessa forma transparente, as organizações permanecem focadas no seu verdadeiro propósito, naquilo que realmente gera valor ao negócio”.
+
 Neste capítulo apresentamos algumas considerações finais a respeito deste projeto, tais como reflexões sobre a motivação, busca da solução e conclusão sobre o seu desenvolvimento. Além disso, sugerimos algumas novas funcionalidades e melhorias como trabalhos futuros, para que este projeto continue sendo desenvolvido e cada vez mais se torne uma alternativa viável na automatização e gestão de processos de negócio.
 
 \section{Considerações}\label{sec:conclusao-introducao}
 
-O combustível principal deste trabalho, fortemente compartilhado por todos os seus integrantes, foi a possibilidade de unir o interesse acadêmico e a incrível experiência vivenciada durante todos os anos de estudos na UFRJ com o objetivo de gerar valor para o mercado corporativo através da Visagio\cite{visagio}, empresa na qual trabalhamos há mais de três anos e formada por ex-alunos desta instituição.
+O combustível principal deste trabalho, fortemente compartilhado por todos os seus integrantes, foi a possibilidade de unir o interesse acadêmico e a incrível experiência vivenciada durante todos os anos de estudos na UFRJ com o objetivo de gerar valor para o mercado corporativo através da Visagio\cite{visagio}, empresa na qual trabalhamos há mais de três anos e criada por ex-alunos desta instituição.
 
 Tendo iniciado com a necessidade de automatizar e padronizar processos simples e com bastante interação humana, encontramos no Redmine uma ótima solução. Descobrimos que o Gerenciador de Projetos podia também ser utilizado como Gerenciador de Processos. Utilizar este sistema faz sentido pela excelente estrutura de gerenciamento de tarefas, acompanhamento do histórico, facilidade para criação de fluxos de trabalho, campos personalizados, e ótimo controle de permissões.
 
 Contudo, se quisermos guiar processos mais complexos, com fluxos paralelos, atribuições, ou decisões de caminhos automáticas, o Redmine por si só não nos atenderia. Ele não foi desenvolvido originalmente com este objetivo, e não valeria a pena tentar desenvolver plugins para possibilitar a condução de processos complexos no Redmine, pois as funcionalidades que são necessárias para isto, já foram todas implementadas em sistemas chamados BPMS.
 
-Os BPMS foram desenvolvidos exatamente com o objetivo de modelar fluxos complexos, e nos atenderiam muito bem em termos de execução do processo. No entanto, como uma das características dos processos que queremos poder automatizar é a necessidade de bastante interação humana, todas as funcionalidades que facilitam esta interação do Redmine citadas acima, nos fariam falta, pois este não é o foco dos BPMS.
+Os BPMS foram desenvolvidos exatamente com o objetivo de modelar fluxos complexos, e nos atenderiam muito bem em termos de execução do processo. No entanto, como uma das características dos processos que queremos automatizar é a necessidade de bastante interação humana, todas as funcionalidades que facilitam esta interação do Redmine e que já estávamos habituados seriam abandonados. 
 
-A proposta final deste trabalho portanto foi o desenvolvimento de um plugin para o Redmine, que chamamos de \textit{BPM Integration}, para integrá-lo com um BPMS. Como descrevemos no Capítulo \ref{chp:integracao_redmine_activiti}, a abordagem inicial foi utilizar um ESB\cite{esb} como uma camada de comunicação entre o Redmine e os BPMS, e desenvolver uma plataforma genérica à qual pudesse ser plugado qualquer BPMS. Devido a algumas dificuldades nesta estratégica, decidimos estabelecer a comunicação com apenas um BPMS e após avaliarmos as possibilidades disponíveis, escolhemos o Activiti BPM\cite{bpm_activiti}.
+A proposta final deste trabalho, portanto, foi o desenvolvimento de um plugin para o Redmine, que chamamos de \textit{BPM Integration}, para integrá-lo com um BPMS. Como descrevemos no Capítulo \ref{chp:integracao_redmine_activiti}, a abordagem inicial foi utilizar um ESB\cite{esb} como uma camada de comunicação entre o Redmine e os BPMS, e desenvolver uma plataforma genérica à qual pudesse ser plugado qualquer BPMS. Devido a algumas dificuldades nesta estratégia, decidimos estabelecer a comunicação com apenas um BPMS e após avaliarmos as possibilidades disponíveis, escolhemos o Activiti BPM\cite{bpm_activiti}.
 
-O plugin \textit{BPM Integration} foi desenvolvido em Ruby on Rails, a linguagem na qual o Redmine foi feito. Ademais, a comunicação entre o Redmine e o Activiti BPM foi feita através do consumo da API REST disponibilizada pelo último.
+O plugin \textit{BPM Integration} foi desenvolvido em Ruby on Rails, a linguagem na qual o Redmine foi feito. Ademais, a comunicação entre o Redmine e o Activiti BPM foi feita através do consumo da API REST disponibilizada pelo BPMS.
 
 
-\section{Melhorias Propostas}\label{sec:conclusao-melhorias}
+\section{Melhorias propostas}\label{sec:conclusao-melhorias}
 
 Em alinhamento com a utilização de soluções de código-fonte aberto que compõem este trabalho, todo o código-fonte da integração desenvolvida está disponibilizado no GitHub da Visagio\cite{github_visagio}. O \textit{Redmine BPM Integration Plugin} segue em constante evolução através da implementação desta solução em clientes relevantes no Brasil, o que exige constantes melhorias e avanços no projeto inicial apresentado neste trabalho.
 
 A seguir são apresentadas algumas propostas de melhorias para o seguimento deste trabalho:
 
-\subsection{Tarefas Contínuas}
+\subsection{Tarefas contínuas}
 
 Durante a implantação, um \textit{feedback} foi recebido pelos usuários do sistema. O plugin introduziu um comportamento um pouco diferente na continuidade do processo do que era de costume no Redmine. Como explicado na Seção \ref{sec:integracao_redmine_activiti_sincronizacao-criacao_human_task}, a representação de uma tarefa humana do Activiti no Redmine é uma sub-tarefa do chamado original que representa o processo. Uma das principais razões desta abordagem foi a necessidade de contemplar processos que existem tarefas humanas que devem ser realizadas em paralelo, de modo que cada ator pudesse executar sua tarefa isoladamente numa sub-tarefa. 
 
@@ -50,7 +53,7 @@ As Figuras \ref{fig:acessar_subtarefa} e \ref{fig:acessar_tarefa_pai} mostram co
 \label{fig:acessar_subtarefa}
 \end{figure}
 
-\subsection{BPMN Integrado}
+\subsection{BPMN integrado}
 
 Neste trabalho utilizamos o Activiti Designer para a modelagem dos processos que é constituído basicamente do Eclipse com um plugin BPMN. Este cenário apresenta-se pouco prático para usuários sem conhecimento de TI. Nesse sentido, observamos a oportunidade de prover uma modelagem de processos fácil e integrada ao Redmine. Assim, o usuário poderia criar seu processo diretamente na ferramenta, com uma interface simples e online, sem a necessidade de contato com aplicações específicas de desenvolvimento.
 
@@ -63,12 +66,12 @@ Já existem iniciativas similares neste sentido, como o Activiti Modeler\cite{ac
 \label{fig:activiti_modeler}
 \end{figure}
 
-\subsection{BRM Integrado}
+\subsection{BRM integrado}
 
 Uma característica bastante comum em sistemas BPMS é a presença de um BRM (\textit{Business Rules Management}) para gestão de regras de negócio nos processos. O Activiti BPM suporta a integração com o Drools, uma aplicação \textit{web} desenvolvida em Java especialista em BRM. O Drools permite a criação de uma tabela de decisão que pode ser configurada pelo usuário para definir uma regra de negócio baseada em intervalo de valores estabelecendo, por exemplo, as alçadas de aprovação em um processo de pagamento.
 
 Uma proposta de evolução no contexto da integração do BPMS com o Redmine seria o desenvolvimento de um plugin BRM que permita a gestão de regras de negócio para processos BPM diretamente no Redmine.
 
-\subsection{BPMS Genérico}
+\subsection{BPMS genérico}
 
 Conforme discutido na Seção \ref{sec:cenario-integracao-genérica}, esta melhoria proporcionaria uma camada genérica de integração de qualquer BPMS ao Redmine, flexibilizando assim a escolha do BPMS ou até mesmo a integração com um BPMS que já esteja em uso pela empresa. 

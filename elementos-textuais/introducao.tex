@@ -45,11 +45,19 @@ Os sistemas de BPM\cite{bpm}, conhecidos como BPMS\cite{bpms}, possibilitam a im
 
 A adoção de soluções BPM trazem também alguns desafios. Por se tratarem de sistemas robustos desenvolvidos para gerenciar processos complexos, sua implantação e manutenção demandam um alto custo: mudanças nos processos irão exigir adaptações nas soluções implantadas, o que pode demandar alto custo e tempo; processos podem ter sua execução impactada devido a situações não previstas durante sua modelagem; além disso, é importante a manutenção de profissionais capacitados para gerenciar e suportar essa nova estrutura tecnológica. Portanto, é necessária uma avaliação criteriosa para que a implantação e automatização seja feita na medida correta.
 
-Considerando a complexidade na adoção de ferramentas BPMS para a gestão e automatização de processos, buscamos uma alternativa capaz de suprir e contemplar fluxos de trabalho menos complexos, garantindo um nível satisfatório de gestão e automação de processos comuns em ambientes corporativos. Essa ferramenta deveria ser de rápida implantação, simples configuração, possuir uma interface amigável com os atores do processo, e possibilitar rápidas customizações no fluxo de trabalho, garantindo assim certo nível de flexibilidade a mudanças.
+Considerando a complexidade na adoção de ferramentas BPMS para a gestão e automatização de processos, buscamos uma alternativa capaz de suprir e contemplar fluxos de trabalho menos complexos, garantindo um nível satisfatório de gestão e automação de processos comuns em ambientes corporativos.
 
 Para suprir esta demanda, propomos a utilização do Redmine, ferramenta \textit{open-source} criada inicialmente para a gestão de projetos. Apesar de não ser o objetivo para o qual foi criado, o Redmine se mostra bastante aplicável para a gestão de processos quando consideramos os recursos oferecidos pelo módulo de gerenciamento de tarefas, os quais seguem um fluxo configurável, bem parecido com os fluxos de processos. As possibilidades de cadastrar campos personalizados e de desenvolver novos plugins também contribuem significantemente para que este software se encaixe bastante bem como gestor de processos em contextos com processos simples e que dependem da interação de pessoas. Ressalta-se ainda o baixo custo de implantação para automatização de processos e a possibilidade de manutenção dos fluxos de trabalho por usuários sem experiência com programação.
 
 Entretanto, a utilização do Redmine como gerenciador de processos mostra-se limitada quando a demanda é automatizar um processo um pouco mais complexo, com a ocorrência de fluxos paralelos, ou a automatização de etapas por outros sistemas.
+
+\section{Objetivos do trabalho}\label{sec:introducao-objetivos}
+
+\subsection{Objetivos gerais}\label{sec:introducao-objetivos-gerais}
+
+Neste trabalho temos como objetivo o desenvolvimento de uma ferramenta que permita a condução de processos simples e complexos que necessitam de interação humana. Essa ferramenta deverá ser de rápida implantação, simples configuração, possuir uma interface amigável com os atores do processo, e possibilitar rápidas customizações no fluxo dos processos simples, assim como uma condução confiável de processos complexos. As tecnologias envolvidas, bem como a solução final deverão ser de código aberto.
+
+\subsection{Objetivos específicos}\label{sec:introducao-objetivos-especificos}
 
 Com o objetivo de estender o Redmine para o atendimento de fluxos de trabalho mais complexos, identificamos a necessidade do desenvolvimento de um motor de processos mais robusto que possibilitasse novas opções e configurações de fluxos na ferramenta. Entretanto, ao avaliarmos a quantidade de possibilidades de fluxos, o desenvolvimento de uma solução desse porte acabou por convergir com soluções praticadas por ferramentas BPMS. 
 
